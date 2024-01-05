@@ -93,10 +93,10 @@
         
           <div class="w3-container w3-card w3-white w3-margin-bottom" style="position: relative;">
             <h2 class="w3-text-grey w3-padding-16" ><i class="fa fa-heartbeat" style="font-size:36px;color:red;margin-right: 10px;"></i>Emergency Contact
-                 <i class="fa fa-edit" onclick="enableEditing()"  style=" margin-left: 10px; font-size:20px; right: 0%; position: absolute;"></i></h2>
+                 <i class="fa fa-edit" onclick="enableEditing()"  style=" margin-left: 10px; font-size:20px; right: 5%; position: absolute;"></i></h2>
             <div class="w3-container" id="editEmergencyContact">
-                <h6 class="emergencyFNameLine"><b>First Name - </b><span class="editableSpan" id ="emergencyFName" onclick="editText(this)"> F Name</span></h6>
-                <h6 class="emergencyLNameLine"><b>Last Name - </b><span class="editableSpan" id ="emergencyLName" onclick="editText(this)"> L Name</span></h6>
+                <h6 class="emergencyFNameLine"><b>First Name - </b><span class="editableSpan" id ="emergencyFName"> F Name</span></h6>
+                <h6 class="emergencyLNameLine"><b>Last Name - </b><span class="editableSpan" id ="emergencyLName"> L Name</span></h6>
                 <h6 class="emergRelationshipLine"><b> Relationship - </b><span class="editableSpan" id ="emergRelationship"> Relationship</span></h6>
                 <h6 class="EmergPhoneNumLine"><b>Phone Number - </b><span class="editableSpan" id ="EmergPhoneNum"> Number</span></h6>
               <hr>
@@ -143,6 +143,7 @@
       <i class="fa fa-linkedin w3-hover-opacity"></i>
       <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
     </footer>
+    <script src="profileScripts.js"></script>
     <script>
         let isEmergButtonAdded = false;
 
@@ -154,164 +155,6 @@ function w3_open() {
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
 }
-
-        function patchEmergencyContact(dataToUpdate)
-        {
-            fetch('https://localhost:5000/api/emContacts/2', {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Add any other headers if needed
-                },
-                body: JSON.stringify(dataToUpdate) // Convert your data to JSON
-            })
-            .then(response => {
-            // Handle the response from the server
-                if (response.ok) 
-                {
-                    console.log('PATCH request successful');
-                    // You might want to update UI or handle success here
-                } else {
-                    throw new Error('PATCH request failed');
-                }
-            })
-            .catch(error => 
-            {
-                console.error('Error:', error);
-                // Handle errors here
-            });
-
-        }
-
-        function enableEditing() {
-            // This function makes the <div> editable by adding the contenteditable attribute
-            const divToEdit = document.getElementById('editEmergencyContact');
-
-            const fNameEdit = document.getElementById('emergencyFName');
-            const lNameEdit = document.getElementById('emergencyLName');
-            const relationshipEdit = document.getElementById('emergRelationship');
-            const emergPhoneEdit = document.getElementById('EmergPhoneNum');
-
-            fNameEdit.contentEditable = true;
-            fNameEdit.classList.add('editable');
-            lNameEdit.contentEditable = true;
-            lNameEdit.classList.add('editable');
-            relationshipEdit.contentEditable = true;
-            relationshipEdit.classList.add('editable');
-            emergPhoneEdit.contentEditable = true;
-            emergPhoneEdit.classList.add('editable');
-            //divToEdit.contentEditable = true;
-            if(!isEmergButtonAdded)
-            {
-                const button = document.createElement('button');
-                button.textContent = 'Update';
-                button.addEventListener('click', function() {
-                // Add your edit functionality here
-                let newFName = fNameEdit.textContent;
-                let newLName = lNameEdit.textContent;
-                let newRelationship = relationshipEdit.textContent;
-                let newEmergPhone = emergPhoneEdit.textContent;
-                console.log('Button clicked! newFName - ' + newFName);
-
-                //data to send to the api
-                let dataToUpdate = [
-                { op: 'replace', path: '/fName', value: newFName },
-                { op: 'replace', path: '/lName', value: newLName },
-                { op: 'replace', path: '/Relationship', value: newRelationship },
-                { op: 'replace', path: '/pNumber', value: newEmergPhone }
-
-
-                ];
-                    //fName: newFName, lName: newLName, Relationship: newRelationship, pNumber: newEmergPhone
-
-                
-                console.log(dataToUpdate);
-                patchEmergencyContact(dataToUpdate);
-            });
-            divToEdit.appendChild(button);
-            isEmergButtonAdded = true;
-
-            }
-
-
-        }
-        function editText(element) {
-            // This function makes the <span> inside the <div> editable
-            element.contentEditable = true;
-            element.classList.add('editableSpan');
-        }
-        fetch('https://localhost:5000/api/emContacts/2')
-            .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-            })
-            .then(data => {
-            // Work with the JSON data
-            console.log(data); // Display or process the fetched data
-            //Handling relationship element
-            const relationshipElement = document.getElementById('emergRelationship');
-            relationshipElement.textContent = data.relationship; // Replace 'jobTitle' with the property containing the job title from your API response
-            //Handling Emergency name element
-            const emergFNameElement = document.getElementById('emergencyFName');
-            emergFNameElement.textContent = data.fName;
-            const emergLNameElement = document.getElementById('emergencyLName');
-            emergLNameElement.textContent = data.lName;
-            //Handling Emergency phone number element
-            const phoneNumElement = document.getElementById('EmergPhoneNum');
-            phoneNumElement.textContent = data.pNumber;
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
-
-
-            fetch('https://localhost:5000/api/employees/2')
-            .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-            })
-            .then(data => {
-            // Work with the JSON data
-            console.log(data); // Display or process the fetched data
-            //Handling relationship element
-            const empNameElement = document.getElementById('empName');
-            let employeeName = data.fName.concat(" ", data.lName);
-            empNameElement.textContent = employeeName; // Replace 'jobTitle' with the property containing the job title from your API response
-            //Handling Emergency name element
-            const empAgeElement = document.getElementById('empAge');
-            empAgeElement.textContent = data.age;
-            //Handling Emergency phone number element
-            const phoneNumElement = document.getElementById('EmpPhoneNum');
-            phoneNumElement.textContent = data.pNumber;
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
-
-            fetch('https://localhost:5000/api/addresses/2')
-            .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-            })
-            .then(data => {
-            // Work with the JSON data
-            console.log(data); // Display or process the fetched data
-
-            //Concat City and Country
-            const empCityCountryElement = document.getElementById('cityCountry');
-            let cityCountry = data.city.concat(", ", data.country);
-            empCityCountryElement.textContent = cityCountry; 
-
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
 
     </script>
     </body>
