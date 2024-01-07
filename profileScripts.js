@@ -1,4 +1,5 @@
 let apiAddress = 'https://localhost:5000/api/';
+let apiAddressEmploymentService = 'https://localhost:5003/api/';
 let employeeSelected = JSON.parse(localStorage.getItem('selectedEmployee'));
 console.log(employeeSelected.fName);
 
@@ -90,6 +91,96 @@ function editText(element) {
     element.classList.add('editableSpan');
 }
 
+    // handling name element
+    const empNameElement = document.getElementById('empName');
+    let employeeName = employeeSelected.fName.concat(" ", employeeSelected.lName);
+    empNameElement.textContent = employeeName;
+    //Handling age element
+    const empAgeElement = document.getElementById('empAge');
+    empAgeElement.textContent = employeeSelected.age;
+        //Handling phone number element
+    const phoneNumElement = document.getElementById('EmpPhoneNum');
+    phoneNumElement.textContent = employeeSelected.pNumber;
+
+
+// Performing all of the GET requests concurrently
+
+// Define all the API endpoints
+let apiAddressEndpoint = apiAddress + 'addresses/' + employeeSelected.id;
+let apiEmergencyEndpoint = apiAddress + 'emContacts/' + employeeSelected.id;
+let apiEmployeeJobEndpoint = apiAddressEmploymentService + 'employees/' + employeeSelected.id;
+
+// Create an array of fetch Promises
+let fetchPromises = [
+    fetch(apiAddressEndpoint),
+    fetch(apiEmergencyEndpoint),
+    fetch(apiEmployeeJobEndpoint)
+];
+
+// Execute all requests concurrently
+Promise.all(fetchPromises)
+    .then(responses => {
+        // Process responses
+        return Promise.all(responses.map(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }));
+    })
+    .then(dataArray => {
+        const [addressData, emergencyData, employeeJobData] = dataArray;
+
+        // Work with address data
+        const empCityCountryElement = document.getElementById('cityCountry');
+        let cityCountry = addressData.city.concat(", ", addressData.country);
+        empCityCountryElement.textContent = cityCountry;
+
+        // Work with emergency contact data
+        const relationshipElement = document.getElementById('emergRelationship');
+        relationshipElement.textContent = emergencyData.relationship;
+
+        const emergFNameElement = document.getElementById('emergencyFName');
+        emergFNameElement.textContent = emergencyData.fName;
+
+        const emergLNameElement = document.getElementById('emergencyLName');
+        emergLNameElement.textContent = emergencyData.lName;
+
+        const phoneNumElement = document.getElementById('EmergPhoneNum');
+        phoneNumElement.textContent = emergencyData.pNumber;
+
+        // Work with employee job data
+        const departmentElement = document.getElementById('jobDepartment');
+        departmentElement.innerHTML = `<b>${employeeJobData.job.department}</b>`;
+
+        const jobRoleElement = document.getElementById('jobRole');
+        jobRoleElement.innerHTML = `<b>${employeeJobData.job.jobTitle}</b>`;
+
+        const jobSalaryElement = document.getElementById('jobSalary');
+        jobSalaryElement.innerHTML = `<b>${employeeJobData.job.salary}</b>`;
+
+        const officeNumElement = document.getElementById('officeNum');
+        officeNumElement.innerHTML = `<b>${employeeJobData.office.buildingNum}</b>`;
+
+        const officeStreetElement = document.getElementById('officeStreet');
+        officeStreetElement.innerHTML = `<b>${employeeJobData.office.street}</b>`;
+
+        const officePostcodeElement = document.getElementById('officePostcode');
+        officePostcodeElement.innerHTML = `<b>${employeeJobData.office.postcode}</b>`;
+
+        const officeCityElement = document.getElementById('officeCity');
+        officeCityElement.innerHTML = `<b>${employeeJobData.office.city}</b>`;
+
+        const officeCountryElement = document.getElementById('officeCountry');
+        officeCountryElement.innerHTML = `<b>${employeeJobData.office.country}</b>`;
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+
+
+    //OLD Iterative approach of performing GET Requests
+/*
 //Getting selected employees address
 let apiAddressEndpoint = apiAddress + 'addresses/' + employeeSelected.id;
 fetch(apiAddressEndpoint)
@@ -142,19 +233,9 @@ fetch(apiEmergencyEndpoint)
         console.error('There was a problem with the fetch operation:', error);
     });
 
-
-    // handling name element
-    const empNameElement = document.getElementById('empName');
-    let employeeName = employeeSelected.fName.concat(" ", employeeSelected.lName);
-    empNameElement.textContent = employeeName;
-    //Handling age element
-    const empAgeElement = document.getElementById('empAge');
-    empAgeElement.textContent = employeeSelected.age;
-        //Handling phone number element
-    const phoneNumElement = document.getElementById('EmpPhoneNum');
-    phoneNumElement.textContent = employeeSelected.pNumber;
-
-   /* fetch('https://localhost:5000/api/employees/2')
+// Getting selected users Employment Info
+let apiEmployeeJobEndpoint = apiAddressEmploymentService + 'employees/' + employeeSelected.id;
+fetch(apiEmployeeJobEndpoint)
     .then(response => {
     if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -165,17 +246,31 @@ fetch(apiEmergencyEndpoint)
     // Work with the JSON data
     console.log(data); // Display or process the fetched data
     //Handling relationship element
-    const empNameElement = document.getElementById('empName');
-    let employeeName = data.fName.concat(" ", data.lName);
-    empNameElement.textContent = employeeName; // Replace 'jobTitle' with the property containing the job title from your API response
+    const departmentElement = document.getElementById('jobDepartment');
+    departmentElement.innerHTML = `<b>${data.job.department}</b>`; //Using .innerHTML to keep the bold tags - .textContent removes it dont know why
     //Handling Emergency name element
-    const empAgeElement = document.getElementById('empAge');
-    empAgeElement.textContent = data.age;
+    const jobRoleElement = document.getElementById('jobRole');
+    jobRoleElement.innerHTML = `<b>${data.job.jobTitle}</b>`;
+    const jobSalaryElement = document.getElementById('jobSalary');
+    jobSalaryElement.innerHTML = `<b>${data.job.salary}</b>`;
+    const officeNumElement = document.getElementById('officeNum');
+    officeNumElement.innerHTML = `<b>${data.office.buildingNum}</b>`;
+    const officeStreetElement = document.getElementById('officeStreet');
+    officeStreetElement.innerHTML = `<b>${data.office.street}</b>`;
+    const officePostcodeElement = document.getElementById('officePostcode');
+    officePostcodeElement.innerHTML = `<b>${data.office.postcode}</b>`;
+    const officeCityElement = document.getElementById('officeCity');
+    officeCityElement.innerHTML = `<b>${data.office.city}</b>`;
+    const officeCountryElement = document.getElementById('officeCountry');
+    officeCountryElement.innerHTML = `<b>${data.office.country}</b>`;
+
     //Handling Emergency phone number element
-    const phoneNumElement = document.getElementById('EmpPhoneNum');
-    phoneNumElement.textContent = data.pNumber;
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
-    });*/
+    });
+*/
+
+
+
 
