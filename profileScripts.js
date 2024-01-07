@@ -151,10 +151,12 @@ Promise.all(fetchPromises)
 
         // Work with employee job data
         const departmentElement = document.getElementById('jobDepartment');
-        departmentElement.innerHTML = `<b>${employeeJobData.job.department}</b>`;
+        departmentElement.innerHTML = `<b>${employeeJobData.job.department} Department</b>`;
 
         const jobRoleElement = document.getElementById('jobRole');
+        const jobRole2Element = document.getElementById('jobRole1');
         jobRoleElement.innerHTML = `<b>${employeeJobData.job.jobTitle}</b>`;
+        jobRole2Element.innerHTML = `${employeeJobData.job.jobTitle}`;
 
         const jobSalaryElement = document.getElementById('jobSalary');
         jobSalaryElement.innerHTML = `<b>${employeeJobData.job.salary}</b>`;
