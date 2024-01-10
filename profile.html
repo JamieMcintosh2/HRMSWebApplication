@@ -8,21 +8,27 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/13f35877d6.js" crossorigin="anonymous"></script>
     <title>Document</title>
 
 </head>
 <body class="w3-light-grey">
 <!-- Burger Menu -->
 <div class="w3-bar w3-teal" id="burgerMenu">
-  <button class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-light-grey" onclick="w3_open()">&#9776;</button>
+  <button class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-light-grey" onclick="w3_open()"><i class="fa-solid fa-bars"></i></button>
 </div>
 
 <!-- Sidebar (hidden by default) -->
-<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-large w3-animate-left" style="display:none;z-index:9999;width:10%;min-width:300px" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()"
-  class="w3-bar-item w3-button">Close Menu</a>
-  <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Food</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About</a>
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-large w3-animate-left" style="display:none;z-index:9999;width:10%;min-width:300px;" id="mySidebar">
+  <div class="w3-bar w3-teal" style="height: 15%;">
+    <button class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-light-grey" onclick="w3_close()"><i class="fa-solid fa-arrow-left"></i></button>
+  </div>
+
+  <!-- Manage Employees dropdown -->
+  <a href="EmployeeList.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Employee List</a>
+  <a href="createEmployee.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Add Employee</a>
+  <a href="generateContent.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Generate Content</a>
+  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">About</a>
 </nav>
 
     <!-- Page Container -->
