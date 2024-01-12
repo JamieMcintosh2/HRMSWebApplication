@@ -33,9 +33,86 @@
 
     <!-- Page Container -->
     <div class="w3-content w3-margin-top" style="max-width:1400px; padding-bottom: 10%;" onclick="w3_close()">
+      <button onclick="openModal()" class="w3-button w3-teal" style=" margin-left: 10px; font-size: 20px; right: 5%; position: absolute;">
+         <i class="fa fa-edit"></i> Edit Profile
+      </button>
     
       <!-- The Grid -->
       <div class="w3-row-padding">
+        <div id="id01" class="w3-modal">
+          <div class="w3-modal-content w3-card-4">
+            <header class="w3-container w3-teal"> 
+                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <h2>Edit Employee</h2>
+            </header>
+                <div class="w3-teal w3-text-grey w3-card-4">
+                    <div class="w3-bar">
+                        <p><button id="btnProfile" onclick="displayEditProfile()" class="w3-button w3-bar-item w3-black w3-border w3-border-grey">Profile</button></p>
+                        <p><button id="btnAddress" onclick="displayEditAddress()"  class="w3-button w3-bar-item w3-black w3-border w3-border-grey">Address</button></p>
+                        <p><button id="btnEmployment" onclick="displayEditEmployment()"  class="w3-button w3-bar-item w3-black w3-border w3-border-grey">Employment</button></p>
+                        <p><button id="btnEmerg" onclick="displayEditEmerg()"  class="w3-button w3-bar-item w3-black w3-border w3-border-grey">Emergency Contact</button></p>
+                    </div>
+                  </div>
+            <div class="w3-three-quarter">
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+                    <div class="w3-container">
+                      <div class="w3-container" id="profileInfo" style="display: block;">
+                        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-user fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Personal Info</h2>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter First Name" id="fName" style="width: 50%; margin-bottom: 2%;" required>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Last Name" id="lName" style="width: 50%; margin-bottom: 2%;" required>
+                        <input class="w3-input w3-border w3-animate-input" type="date" id="DOB" style="width: 50%; margin-bottom: 2%;" required>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Phone Number" id="pNumber" style="width: 50%; margin-bottom: 2%;" required>
+                        <hr>
+                        <button onclick="UpdateProfileInfo()" class="w3-btn w3-teal" style="float: left;">Update</button>
+                      </div>
+                      <div class="w3-container" id="addressInfo" style="display: none;">
+                        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-home fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Home Address</h2>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter House Number" id="houseNum" style="width: 50%; margin-bottom: 2%;" required>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Street Name" id="Street" style="width: 50%; margin-bottom: 2%;" required>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Postcode" id="Postcode" style="width: 50%; margin-bottom: 2%;" required>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter City" id="City" style="width: 50%; margin-bottom: 2%;" required>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Country" id="Country" style="width: 50%; margin-bottom: 2%;" required>
+                        <hr>
+                        <button onclick="UpdateAddressInfo()" class="w3-btn w3-teal" style="float: left;">Update</button>
+                      </div>
+                      <div class="w3-container" id="emergencyInfo" style="display: none;">
+                        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-heartbeat fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><br>Emergency Contact</h2>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter First Name" id="emergFName" style="width: 50%; margin-bottom: 2%;" required>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Last Name" id="emergLName" style="width: 50%; margin-bottom: 2%;" required>
+                        <select class="w3-select w3-border" name="relationship" style="width: 50%; margin-bottom: 2%;" required>
+                            <option value="" disabled selected>Select Relationship</option>
+                            <option value="1">Father</option>
+                            <option value="2">Mother</option>
+                            <option value="3">Partner</option>
+                            <option value="4">Wife</option>
+                            <option value="5">Husband</option>
+                            <option value="6">Other</option>
+                          </select>
+                        <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Phone Number" id="emergPNumber" style="width: 50%; margin-bottom: 2%;" required>
+                        <hr>
+                        <button onclick="UpdateEmergencyInfo()" class="w3-btn w3-teal" style="float: left;">Update</button>
+                      </div>
+                      <div class="w3-container" id="employmentInfo" style="display: none;">
+                        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-briefcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Employment Info</h2>
+                        <select class="w3-select w3-border" id="selectJob" name="selectJob" style="width: 50%; margin-bottom: 2%; margin-top: 2%;">
+                          <option value="" disabled selected>Select Job</option>
+                          <option value="1">Error - Data not loaded</option>
+                          <option value="2">Error - Data not loaded</option>
+                      </select>
+                      <select class="w3-select w3-border" id="selectOffice" name="selectOffice" style="width: 50%; margin-bottom: 2%;">
+                          <option value="" disabled selected>Select Office</option>
+                          <option value="1">Error - Data not loaded</option>
+                          <option value="2">Error - Data not loaded</option>
+                      </select>
+                      <hr>
+                      <button onclick="UpdateEmploymentInfo()" class="w3-btn w3-teal" style="float: left;">Update</button>
+                      </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
       
         <!-- Left Column -->
         <div class="w3-third">
@@ -159,6 +236,17 @@ function w3_open() {
  
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
+}
+function openModal()
+{
+  document.getElementById('id01').style.display = 'block';
+  hideAllDivs();
+  document.getElementById("profileInfo").style.display = "block";
+  const btnProfile = document.getElementById("btnProfile");
+    btnProfile.classList.remove("w3-black");
+
+    // Add the new class
+    btnProfile.classList.add("w3-white");
 }
 
     </script>

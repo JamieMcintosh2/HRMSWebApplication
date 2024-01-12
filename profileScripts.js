@@ -1,7 +1,72 @@
 let apiAddress = 'https://localhost:5000/api/';
 let apiAddressEmploymentService = 'https://localhost:5003/api/';
 let employeeSelected = JSON.parse(localStorage.getItem('selectedEmployee'));
-console.log(employeeSelected.fName);
+let selectedDiv = "profileInfo"; // Default selected div
+
+
+
+function hideAllDivs() {
+    const divs = ["profileInfo", "addressInfo", "employmentInfo", "emergencyInfo"];
+    const buttons = ["btnProfile", "btnAddress", "btnEmployment", "btnEmerg"];
+    divs.forEach(divId => {
+        const div = document.getElementById(divId);
+        if (div) {
+            div.style.display = "none";
+        }
+    });
+    buttons.forEach(buttonId => {
+        const btn = document.getElementById(buttonId);
+        if (btn) {
+            btn.classList.remove("w3-white");
+            btn.classList.add("w3-black");
+        }
+    });
+}
+
+function displayEditProfile() {
+    hideAllDivs();
+    document.getElementById("profileInfo").style.display = "block";
+    const btnProfile = document.getElementById("btnProfile");
+    btnProfile.classList.remove("w3-black");
+
+    // Add the new class
+    btnProfile.classList.add("w3-white");
+    selectedDiv = "profileInfo";
+}
+
+function displayEditAddress() {
+    hideAllDivs();
+    document.getElementById("addressInfo").style.display = "block";
+    const btn = document.getElementById("btnAddress");
+    btn.classList.remove("w3-black");
+
+    // Add the new class
+    btn.classList.add("w3-white");
+    selectedDiv = "addressInfo";
+}
+
+function displayEditEmployment() {
+    hideAllDivs();
+    document.getElementById("employmentInfo").style.display = "block";
+    const btn = document.getElementById("btnEmployment");
+    btn.classList.remove("w3-black");
+
+    // Add the new class
+    btn.classList.add("w3-white");
+    selectedDiv = "employmentInfo";
+}
+
+function displayEditEmerg() {
+    hideAllDivs();
+    document.getElementById("emergencyInfo").style.display = "block";
+    const btn = document.getElementById("btnEmerg");
+    btn.classList.remove("w3-black");
+
+    // Add the new class
+    btn.classList.add("w3-white");
+    selectedDiv = "emergencyInfo";
+}
+
 
 function patchEmergencyContact(dataToUpdate)
 {
