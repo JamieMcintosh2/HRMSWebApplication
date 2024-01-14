@@ -60,7 +60,6 @@
                         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-user fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Personal Info</h2>
                         <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter First Name" id="fName" style="width: 50%; margin-bottom: 2%;" required>
                         <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Last Name" id="lName" style="width: 50%; margin-bottom: 2%;" required>
-                        <input class="w3-input w3-border w3-animate-input" type="date" id="DOB" style="width: 50%; margin-bottom: 2%;" required>
                         <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Phone Number" id="pNumber" style="width: 50%; margin-bottom: 2%;" required>
                         <hr>
                         <button onclick="UpdateProfileInfo()" class="w3-btn w3-teal" style="float: left;">Update</button>
@@ -79,7 +78,7 @@
                         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-heartbeat fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><br>Emergency Contact</h2>
                         <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter First Name" id="emergFName" style="width: 50%; margin-bottom: 2%;" required>
                         <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Last Name" id="emergLName" style="width: 50%; margin-bottom: 2%;" required>
-                        <select class="w3-select w3-border" name="relationship" style="width: 50%; margin-bottom: 2%;" required>
+                        <select class="w3-select w3-border" name="relationship" id="relationship" style="width: 50%; margin-bottom: 2%;" required>
                             <option value="" disabled selected>Select Relationship</option>
                             <option value="1">Father</option>
                             <option value="2">Mother</option>
@@ -244,6 +243,7 @@ function openModal()
   document.getElementById("profileInfo").style.display = "block";
   const btnProfile = document.getElementById("btnProfile");
     btnProfile.classList.remove("w3-black");
+    fillEditFields();
 
     // Add the new class
     btnProfile.classList.add("w3-white");
