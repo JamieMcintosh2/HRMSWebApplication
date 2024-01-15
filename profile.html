@@ -174,8 +174,7 @@
         <div class="w3-twothird">
         
           <div class="w3-container w3-card w3-white w3-margin-bottom" style="position: relative;">
-            <h2 class="w3-text-grey w3-padding-16" ><i class="fa fa-heartbeat" style="font-size:36px;color:red;margin-right: 10px;"></i>Emergency Contact
-                 <i class="fa fa-edit" onclick="enableEditing()"  style=" margin-left: 10px; font-size:20px; right: 5%; position: absolute;"></i></h2>
+            <h2 class="w3-text-grey w3-padding-16" ><i class="fa fa-heartbeat" style="font-size:36px;color:red;margin-right: 10px;"></i>Emergency Contact</h2>
             <div class="w3-container" id="editEmergencyContact">
                 <h6 class="emergencyFNameLine"><b>First Name - </b><span class="editableSpan" id ="emergencyFName"> F Name</span></h6>
                 <h6 class="emergencyLNameLine"><b>Last Name - </b><span class="editableSpan" id ="emergencyLName"> L Name</span></h6>
@@ -190,7 +189,7 @@
             <div class="w3-container">
               <h5 class="w3-text-teal"><b> <i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Job Details</b></h5>
               <b><h6 class="w3-opacity" id="jobDepartment">Department</h6></b>
-              <h6 class="w3-opacity" id="jobRole"><b>Role</b></h6>
+              <b></b><h6 class="w3-opacity" id="jobRole">Role</h6></b>
               <h6 class="w3-opacity" id="jobSalary"><b>Salary</b></h6>
               <hr>
             </div>
@@ -227,7 +226,7 @@
     <script src="profileScripts.js"></script>
     <script>
         let isEmergButtonAdded = false;
-
+        setNameText();
         // Script to open and close sidebar
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
