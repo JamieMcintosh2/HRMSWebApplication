@@ -2,7 +2,8 @@ let selectedRow = '';
 let allJobData;
 
 function getAllJobs(){
-    fetch('https://localhost:5003/api/jobs')
+    //fetch('https://localhost:5003/api/jobs')
+    fetch('http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/jobs')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok.');
@@ -90,8 +91,10 @@ function createJobDto() {
 
 function createNewJob(){
     const jobData = createJobDto(); //Getting the Job data to send to the api
-
-    fetch('https://localhost:5003/api/jobs', {
+    //'http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/jobs'
+    //'https://localhost:5003/api/jobs'
+    fetch('http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/jobs', 
+    {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -2,7 +2,8 @@ let selectedRow = '';
 let allofficeData;
 
 function getAlloffices(){
-    fetch('https://localhost:5003/api/offices')
+    //fetch('https://localhost:5003/api/offices')
+    fetch('http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/offices')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok.');
@@ -93,7 +94,8 @@ function createofficeDto() {
 function createNewOffice(){
     const officeData = createofficeDto(); //Getting the office data to send to the api
 
-    fetch('https://localhost:5003/api/offices', {
+    //fetch('https://localhost:5003/api/offices', {
+    fetch('http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/offices', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -122,17 +124,19 @@ function createNewOffice(){
 }
 
 function displayAddofficeModal() {
-    var modal = document.getElementById("idAddoffice");
+    var modal = document.getElementById("idAddOffice");
     modal.style.display = "block";
 }
 
 // Function to close the modal
 function closeAddofficeModal() {
-    var modal = document.getElementById("idAddoffice");
+    var modal = document.getElementById("idAddOffice");
     modal.style.display = "none";
 
     // Clear input fields
-    document.getElementById('officeTitle').value = '';
-    document.getElementById('officeDepartment').value = '';
-    document.getElementById('officeSalary').value = '';
+    document.getElementById('officeNum').value = '';
+    document.getElementById('officeStreet').value = '';
+    document.getElementById('officePostcode').value = '';
+    document.getElementById('officeCity').value = '';
+    document.getElementById('officeCountry').value = '';
 }
