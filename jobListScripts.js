@@ -3,7 +3,7 @@ let allJobData;
 
 function getAllJobs(){
     //fetch('https://localhost:5003/api/jobs')
-    fetch('http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/jobs')
+    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/jobs')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok.');
@@ -93,7 +93,7 @@ function createNewJob(){
     const jobData = createJobDto(); //Getting the Job data to send to the api
     //'http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/jobs'
     //'https://localhost:5003/api/jobs'
-    fetch('http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/jobs', 
+    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/jobs', 
     {
         method: 'POST',
         headers: {

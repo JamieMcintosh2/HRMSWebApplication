@@ -1,5 +1,5 @@
 let displayedDiv = 0;
-let apiRecruitmentService = 'https://localhost:7130/api/';
+let apiRecruitmentService = 'http://recruitmentservicev1.hrf4atd3h4b7g8ar.uksouth.azurecontainer.io/api/';
 let JobAdPOSTEndpoint = apiRecruitmentService + 'adverts';
 let interviewQEndpoint = apiRecruitmentService + 'questions'
 

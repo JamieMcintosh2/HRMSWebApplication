@@ -3,7 +3,7 @@ let allofficeData;
 
 function getAlloffices(){
     //fetch('https://localhost:5003/api/offices')
-    fetch('http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/offices')
+    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/offices')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok.');
@@ -95,7 +95,7 @@ function createNewOffice(){
     const officeData = createofficeDto(); //Getting the office data to send to the api
 
     //fetch('https://localhost:5003/api/offices', {
-    fetch('http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/offices', {
+    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/offices', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
