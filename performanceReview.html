@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="baseStyle.css">
+    <link rel="stylesheet" href="navCSS.css">
+    <link rel="stylesheet" href="performancereviewCSS.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/13f35877d6.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+
+</head>
+<body class="w3-light-grey">
+<!-- Burger Menu -->
+<div class="w3-bar w3-teal" id="burgerMenu">
+  <button class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-light-grey" onclick="w3_open()"><i class="fa-solid fa-bars"></i></button>
+</div>
+
+<!-- Sidebar (hidden by default) -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-large w3-animate-left" style="display:none;z-index:9999;width:10%;min-width:300px;" id="mySidebar">
+  <div class="w3-bar w3-teal" style="height: 15%;">
+    <button class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-light-grey" onclick="w3_close()"><i class="fa-solid fa-arrow-left"></i></button>
+  </div>
+
+        <!-- Manage Employees dropdown -->
+        <a href="EmployeeList.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Employee List</a>
+        <a href="createEmployee.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Add Employee</a>
+        <a href="generateContent.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Generate Content</a>
+        <a href="manageJobs.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Manage Jobs</a>
+        <a href="manageOffices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Manage Offices</a>
+</nav>
+
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top" style="max-width:1400px; padding-bottom: 10%;" onclick="w3_close()">
+        <div class="w3-container w3-card w3-teal">
+            <h1>Performance Review</h1>
+        </div>
+        <div class="w3-white w3-text-grey w3-card-4">
+            <div class="w3-container">
+                <div class="w3-responsive">
+                    <br><br>
+
+                    <table class="w3-table-all w3-centered">
+                        <tr class="w3-teal">
+                        <th class="first-col"></th>
+                        <th>Excellent</th>
+                        <th>Good</th>
+                        <th>Fair</th>
+                        <th>Poor</th>
+                        </tr>
+                        <tr>
+                        <td class="first-col">How well has the employee managed their time?</td>
+                        <td><input class="w3-radio" type="radio" value=7.1 name="Time Management" /></td>
+                        <td><input class="w3-radio" type="radio" value=3.1 name="Time Management" /></td>
+                        <td><input class="w3-radio" type="radio" value=-3.1 name="Time Management" /></td>
+                        <td><input class="w3-radio" type="radio" value=-7.1 name="Time Management" /></td>
+                        </tr>
+                        <tr>
+                        <td class="first-col">How would you rate the employees quality of work?</td>
+                        <td><input class="w3-radio" type="radio" value=7.1 name="Quality" /></td>
+                        <td><input class="w3-radio" type="radio" value=3.1 name="Quality" /></td>
+                        <td><input class="w3-radio" type="radio" value=-3.1 name="Quality" /></td>
+                        <td><input class="w3-radio" type="radio" value=-7.1 name="Quality" /></td>
+                        </tr>
+                        <tr>
+                        <td class="first-col">How would you rate the employees productivity?</td>
+                        <td><input class="w3-radio" type="radio" value=7.1 name="Productivity" /></td>
+                        <td><input class="w3-radio" type="radio" value=3.1 name="Productivity" /></td>
+                        <td><input class="w3-radio" type="radio" value=-3.1 name="Productivity" /></td>
+                        <td><input class="w3-radio" type="radio" value=-7.1 name="Productivity" /></td>
+                        </tr>
+                        <tr>
+                        <td class="first-col">How would you rate the employees communication?</td>
+                        <td><input class="w3-radio" type="radio" value=7.1 name="Communication" /></td>
+                        <td><input class="w3-radio" type="radio" value=3.1 name="Communication" /></td>
+                        <td><input class="w3-radio" type="radio" value=-3.1 name="Communication" /></td>
+                        <td><input class="w3-radio" type="radio" value=-7.1 name="Communication" /></td>
+                        </tr>
+                        <tr>
+                        <td class="first-col">How well has the employee worked as part of a team?</td>
+                        <td><input class="w3-radio" type="radio" value=7.1 name="Teamwork" /></td>
+                        <td><input class="w3-radio" type="radio" value=3.1 name="Teamwork" /></td>
+                        <td><input class="w3-radio" type="radio" value=-3.1 name="Teamwork" /></td>
+                        <td><input class="w3-radio" type="radio" value=-7.1 name="Teamwork" /></td>
+                        </tr>
+                        <tr>
+                        <td class="first-col">How would you rate the employees Leadership?</td>
+                        <td><input class="w3-radio" type="radio" value=7.1 name="Leadership" /></td>
+                        <td><input class="w3-radio" type="radio" value=3.1 name="Leadership" /></td>
+                        <td><input class="w3-radio" type="radio" value=-3.1 name="Leadership" /></td>
+                        <td><input class="w3-radio" type="radio" value=-7.1 name="Leadership" /></td>
+                        </tr>
+                        <tr>
+                        <td class="first-col">How would you rate the employees Adaptability?</td>
+                        <td><input class="w3-radio" type="radio" value=7.1 name="Adaptability" /></td>
+                        <td><input class="w3-radio" type="radio" value=3.1 name="Adaptability" /></td>
+                        <td><input class="w3-radio" type="radio" value=-3.1 name="Adaptability" /></td>
+                        <td><input class="w3-radio" type="radio" value=-7.1 name="Adaptability" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <br>
+
+                <textarea name="taFeedback" id="taFeedback" class="w3-input w3-light-grey" placeholder="Please enter employee feedback" rows="10" cols="30"></textarea>
+                
+                <br>
+                <button onclick="submitReview()" class="w3-btn w3-teal">Submit</button>
+            </div>
+        </div>
+    </div>
+
+      
+        <div id="id02" class="w3-modal">
+          <div class="w3-modal-content w3-card-4">
+            <header class="w3-container w3-teal"> 
+              <span onclick="closeModal()" class="w3-button w3-display-topright">&times;</span>
+              <h2>Header</h2>
+            </header>
+            <div class="w3-container" id="modalScore">
+                <h1 id="spinnerHeading"><i class="fa-solid fa-spinner w3-spin"></i></h1>
+                <h1 id="generateHeading">Working...</h1>
+                <h2>Performance Review Complete</h2>
+                <h2 id="empName"></h2>
+                <h2>Scored - <span class="w3-badge w3-green" id="score"></span></h2>
+            </div>
+          </div>
+        </div>
+
+<script src="performanceReviewScripts.js"></script>
+<script>
+    // Script to open and close sidebar
+function w3_open() {
+document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+document.getElementById("mySidebar").style.display = "none";
+}
+
+function closeModal() {
+    // Close the modal
+    document.getElementById('id02').style.display = 'none';
+    
+    // Navigate to another page
+    window.location.href = 'profile.html';
+}
+
+
+</script>
+</body>
+</html>

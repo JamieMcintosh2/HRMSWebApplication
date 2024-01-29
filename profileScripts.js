@@ -1,10 +1,49 @@
 //let apiAddress = 'https://localhost:5000/api/';
 let apiAddress = 'http://profileservicev1.hpbjgbfgexcqehau.uksouth.azurecontainer.io/api/';
+let apiDevelopment = 'http://developmentservicev1.cnd3fxdgewd0hcc8.uksouth.azurecontainer.io/api/'
 //let apiAddressEmploymentService = 'https://localhost:5003/api/';
 //'http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/offices'
 let apiAddressEmploymentService = 'http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/';
 let employeeSelected = JSON.parse(localStorage.getItem('selectedEmployee'));
 let selectedDiv = "profileInfo"; // Default selected div
+
+fetch(apiDevelopment + 'performance/' + employeeSelected.id)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Process the data received from the backend
+    console.log(data);
+    const weaknessList = document.getElementById('weaknessList');
+    const strengthList = document.getElementById('strengthList');
+    weaknessList.textContent = data.weaknesses;
+    strengthList.textContent = data.strengths;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+  fetch(apiDevelopment + 'feedback/' + employeeSelected.id)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Process the data received from the backend
+    console.log(data);
+    const scoreBar = document.getElementById('scoreBar');
+    // Update width percentage
+    scoreBar.style.width = data.overallScore + '%';
+    scoreBar.textContent = data.overallScore + '%';
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 
 
 function fillEditFields()

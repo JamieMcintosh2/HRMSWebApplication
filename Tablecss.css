@@ -11,7 +11,7 @@
 
 .rwd-table tr:first-child {
   border-top: none;
-  background: #428bca;
+  background: #008080;
   color: #fff;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .rwd-table tr:nth-child(odd):not(:first-child) {
-  background-color: #ebf3f9;
+  background-color: #d1e6f2;
 }
 
 .rwd-table th {
@@ -103,15 +103,16 @@
 /* THE END OF THE IMPORTANT STUFF */
 
 /* Basic Styling */
+/*
 body {
 background: #4B79A1;
 background: -webkit-linear-gradient(to left, #4B79A1 , #283E51);
 background: linear-gradient(to left, #4B79A1 , #283E51);        
-}
+}*/
 h1 {
   text-align: center;
   font-size: 2.4em;
-  color: #f2f2f2;
+  color: #00000067;
 }
 .container {
   display: block;
