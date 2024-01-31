@@ -1,5 +1,7 @@
 let selectedRow = '';
 let allofficeData;
+let selectedOffice;
+let selectedDiv ='';
 
 function getAlloffices(){
     //fetch('https://localhost:5003/api/offices')
@@ -48,6 +50,7 @@ function populateTable(data){
             selectedRow = office.id;
             console.log('Row clicked! office ID:', selectedRow);
             // Perform actions when a row is clicked
+            selectedOffice = allofficeData.find(office => office.id === selectedRow);
         });
         
         tableBody.appendChild(newRow);
@@ -75,6 +78,7 @@ function addNewofficetoTable(newofficeData)
         selectedRow = newofficeData.id;
         console.log('Row clicked! office ID:', selectedRow);
         // Perform actions when a row is clicked
+        selectedOffice = allofficeData.find(office => office.id === selectedRow);
     });
     
     tableBody.appendChild(newRow);
@@ -126,12 +130,14 @@ function createNewOffice(){
 function displayAddofficeModal() {
     var modal = document.getElementById("idAddOffice");
     modal.style.display = "block";
+    selectedDiv = '';
 }
 
 // Function to close the modal
 function closeAddofficeModal() {
     var modal = document.getElementById("idAddOffice");
     modal.style.display = "none";
+    selectedDiv = '';
 
     // Clear input fields
     document.getElementById('officeNum').value = '';
@@ -139,4 +145,118 @@ function closeAddofficeModal() {
     document.getElementById('officePostcode').value = '';
     document.getElementById('officeCity').value = '';
     document.getElementById('officeCountry').value = '';
+}
+function openModal1()
+{
+    document.getElementById('idAddOffice').style.display = 'block';
+    selectedDiv = 'idAddOffice';
+}
+function openModal2()
+{
+    if(selectedRow != "")
+    {
+        document.getElementById('idEditOffice').style.display = 'block';
+        selectedDiv = 'idEditOffice';
+        populateEditFields();
+    }
+    else
+    {
+        alert("You must click a Job from the list first");
+    }
+
+}
+
+function populateEditFields()
+{
+        // Get the edit fields
+        const officeNumEdit = document.getElementById('officeNumEdit');
+        const officeStreetEdit = document.getElementById('officeStreetEdit');
+        const officePostcodeEdit = document.getElementById('officePostcodeEdit');
+        const officeCityEdit = document.getElementById('officeCityEdit');
+        const officeCountryEdit = document.getElementById('officeCountryEdit');
+    
+        // Populate the edit fields with data from the selected office
+        officeNumEdit.value = selectedOffice.buildingNum;
+        officeStreetEdit.value = selectedOffice.street;
+        officePostcodeEdit.value = selectedOffice.postcode;
+        officeCityEdit.value = selectedOffice.city;
+        officeCountryEdit.value = selectedOffice.country;
+    
+        // Display the edit modal
+        document.getElementById('idEditOffice').style.display = 'block';
+}
+function checkEmptyFields()
+{
+        //storing all the input/select fields inside the jobAdDiv
+    // and checking if they are empty
+    const fields = document.querySelectorAll('#'+ selectedDiv +' input');
+    let isEmpty = false;
+
+    fields.forEach(field => {
+        if (field.value.trim() === '' && field.hasAttribute('required')) {
+            isEmpty = true;
+            field.classList.add('w3-border-red'); // Add red border to empty required fields
+        } else {
+            field.classList.remove('w3-border-red'); // Remove red border if field is filled or not required
+        }
+    });
+
+    if (isEmpty) {
+        alert('Please fill in all required fields.');
+    }
+    else{
+        return true;
+    }
+}
+
+function updateOfficeInfo()
+{
+    if(checkEmptyFields())
+    {
+        //let endpoint = apiAddress + 'addresses/' + employeeSelected.id;
+        let newOfficeNum = parseInt(document.getElementById('officeNumEdit').value);
+        let newStreet = document.getElementById('officeStreetEdit').value;
+        let newPostcode = document.getElementById('officePostcodeEdit').value;
+        let newCity = document.getElementById('officeCityEdit').value;
+        let newCountry = document.getElementById('officeCountryEdit').value;
+            //data to send to the api
+        let dataToUpdate = [
+            { op: 'replace', path: '/buildingNum', value: newOfficeNum },
+            { op: 'replace', path: '/street', value: newStreet },
+            { op: 'replace', path: '/postcode', value: newPostcode },
+            { op: 'replace', path: '/city', value: newCity },
+            { op: 'replace', path: '/country', value: newCountry }
+        ];
+        patchOfficeData(dataToUpdate);
+    }
+}
+function patchOfficeData(dataToUpdate)
+{
+    //console.log(dataToUpdate);
+    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/offices/' + selectedRow, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers if needed
+        },
+        body: JSON.stringify(dataToUpdate) // Convert your data to JSON
+    })
+    .then(response => {
+    // Handle the response from the server
+        if (response.ok) 
+        {
+            console.log('PATCH request successful');
+            alert('Data Successfully updated')
+            // UPDATE UI
+            location.reload();
+
+        } else {
+            throw new Error('PATCH request failed');
+        }
+    })
+    .catch(error => 
+    {
+        console.error('Error:', error);
+        // Handle errors here
+    });
 }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="baseStyle.css">
+        <link rel="stylesheet" href="navCSS.css">
+        <link rel="stylesheet" href="Tablecss.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/13f35877d6.js" crossorigin="anonymous"></script>
+        <title>Document</title>
+    
+    </head>
+    <body class="w3-light-grey">
+    <!-- Burger Menu -->
+    <div class="w3-bar w3-teal w3-theme" id="burgerMenu">
+      <button class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-light-grey" onclick="w3_open()"> <h2><i class="fa-solid fa-bars"></i> </h2></button>
+      <span class="w3-bar-item w3-centered"><h2>Modern HR Management System</h2></span>
+    </div>
+    
+    <!-- Sidebar (hidden by default) -->
+    <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-large w3-animate-left" style="display:none;z-index:9999;width:10%;min-width:300px;" id="mySidebar">
+      <div class="w3-bar w3-teal" style="height: 15%;">
+        <button class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-light-grey" onclick="w3_close()"><i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+    
+            <!-- Manage Employees dropdown -->
+            <a href="EmployeeList.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Employee List</a>
+            <a href="createEmployee.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Add Employee</a>
+            <a href="generateContent.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Generate Content</a>
+            <a href="manageJobs.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Manage Jobs</a>
+            <a href="manageOffices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Manage Offices</a>
+    </nav>
+
+        <!-- Page Container -->
+        <div class="w3-content w3-margin-top w3-" style="max-width:1400px; padding-bottom: 10%;" onclick="w3_close()">
+            <div class="w3-card-4 w3-round-xxlarge w3-white">
+                <header class="w3-container w3-teal w3-round-large">
+                    <h2>Current Performance Review</h2>
+                    <hr>
+                  </header>
+                <div class="w3-container">
+                    <br>
+                    <img src="avatar.jpg" alt="Avatar" class="w3-left w3-circle" style="margin-right: 2%; max-height: 10%; max-width: 10%;">
+                    <h2 id="employeeName">Jane Doe</h2>
+                    <br><br><br>
+                    <hr style="border-top: 3px solid teal;">
+                    <h3>Performance Score - <span class="w3-badge w3-green" id="empScore">90</span></h3>
+                    <hr>
+
+                    <i class="fa fa-thumbs-up fa-fw w3-margin-right w3-xlarge w3-text-teal"></i><h4><span id="emStrength">Strengths</span></h4>
+                    <hr>
+                    <i class="fa fa-thumbs-down fa-fw w3-margin-right w3-xlarge w3-text-teal"></i> <h4><span id="emWeaknesses">Weaknesses</span></h4>
+                </div>     
+            </div>
+            <br><br>
+            <div class="w3-card-4">
+                <div class="container">
+                    <h1>Performance History</h1>
+                    <table class="rwd-table">
+                        <tbody id="performanceTB">
+                          <tr>
+                            <th>Performance</th>
+                            <th>Strengths</th>
+                            <th>Weaknesses</th>
+                            <th>Feedback</th>
+                            <th>Review Date</th>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+    <script src="peformanceDetailsScripts.js"></script>
+    <script>
+        let isEmergButtonAdded = false;
+        //setNameText();
+        // Script to open and close sidebar
+        function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+        }
+        
+        function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+</body>
+</html>

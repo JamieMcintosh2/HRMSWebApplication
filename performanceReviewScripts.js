@@ -1,7 +1,7 @@
-var strengthsArr = [];
+//var strengthsArr = [];
 var strengthsList = "";
 var weaknessesList = "";
-var weaknessesArr = [];
+//var weaknessesArr = [];
 var allFieldsScored = true;
 var totalScore = 0;
 let employeeSelected = JSON.parse(localStorage.getItem('selectedEmployee'));
@@ -187,7 +187,7 @@ function calculateScore() {
                     strengthsList = strengthsList + ", " + criteria[i];
                 }
                 
-                strengthsArr.push(criteria[i]);
+                //strengthsArr.push(criteria[i]);
             }
             if(selectedValue === -7.1)
             {
@@ -199,7 +199,7 @@ function calculateScore() {
                 else{
                     weaknessesList = weaknessesList + ", " + criteria[i];
                 }
-                weaknessesArr.push(criteria[i]);
+                //weaknessesArr.push(criteria[i]);
             }
             totalScore += selectedValue;
         }

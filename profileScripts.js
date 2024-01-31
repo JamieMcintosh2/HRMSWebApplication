@@ -6,6 +6,8 @@ let apiDevelopment = 'http://developmentservicev1.cnd3fxdgewd0hcc8.uksouth.azure
 let apiAddressEmploymentService = 'http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/';
 let employeeSelected = JSON.parse(localStorage.getItem('selectedEmployee'));
 let selectedDiv = "profileInfo"; // Default selected div
+let empPerformance;
+let empFeedback;
 
 fetch(apiDevelopment + 'performance/' + employeeSelected.id)
   .then(response => {
@@ -17,6 +19,8 @@ fetch(apiDevelopment + 'performance/' + employeeSelected.id)
   .then(data => {
     // Process the data received from the backend
     console.log(data);
+    empPerformance = data;
+    localStorage.setItem('empPerformance', JSON.stringify(empPerformance));
     const weaknessList = document.getElementById('weaknessList');
     const strengthList = document.getElementById('strengthList');
     weaknessList.textContent = data.weaknesses;
@@ -36,6 +40,8 @@ fetch(apiDevelopment + 'performance/' + employeeSelected.id)
   .then(data => {
     // Process the data received from the backend
     console.log(data);
+    empFeedback = data;
+    localStorage.setItem('empFeedback', JSON.stringify(empFeedback));
     const scoreBar = document.getElementById('scoreBar');
     // Update width percentage
     scoreBar.style.width = data.overallScore + '%';

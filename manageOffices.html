@@ -51,8 +51,8 @@
                   </tr>
                 </tbody>
             </table>
-            <button class="w3-button w3-teal w3-margin-top" id="btnEditoffice">Edit office</button>
-            <button class="w3-button w3-teal w3-margin-top" id="btnNewOffice">Add New Office</button>
+            <button class="w3-button w3-teal w3-margin-top" id="btnEditoffice" onclick="openModal2()">Edit office</button>
+            <button class="w3-button w3-teal w3-margin-top" id="btnNewOffice" onclick="openModal1()">Add New Office</button>
         </div>
         <div id="idAddOffice" class="w3-modal">
             <div class="w3-modal-content w3-card-4">
@@ -62,6 +62,7 @@
               </header>
               <div class="w3-container">
                 <p id="loadingIcon" style="display: none;"><i class="fa fa-refresh w3-spin" style="font-size:64px"></i></p>
+                <br>
                 <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Building Num" id="officeNum" style="width: 50%; margin-bottom: 2%;" required>
                 <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Street" id="officeStreet" style="width: 50%; margin-bottom: 2%;" required>
                 <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Postcode" id="officePostcode" style="width: 50%; margin-bottom: 2%;" required>
@@ -71,6 +72,25 @@
               </div>
             </div>
         </div>
+
+        <div id="idEditOffice" class="w3-modal">
+          <div class="w3-modal-content w3-card-4">
+            <header class="w3-container w3-teal"> 
+              <span onclick="document.getElementById('idEditOffice').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+              <h2>Employment Information</h2>
+            </header>
+            <div class="w3-container">
+              <p id="loadingIcon" style="display: none;"><i class="fa fa-refresh w3-spin" style="font-size:64px"></i></p>
+              <br>
+              <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Building Num" id="officeNumEdit" style="width: 50%; margin-bottom: 2%;" required>
+              <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Street" id="officeStreetEdit" style="width: 50%; margin-bottom: 2%;" required>
+              <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Postcode" id="officePostcodeEdit" style="width: 50%; margin-bottom: 2%;" required>
+              <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter City" id="officeCityEdit" style="width: 50%; margin-bottom: 2%;" required>
+              <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Country" id="officeCountryEdit" style="width: 50%; margin-bottom: 2%;" required>
+              <button onclick="updateOfficeInfo()" class="w3-btn w3-teal">Submit</button>
+            </div>
+          </div>
+      </div>
 
     </div>
 
@@ -90,7 +110,7 @@
 
 
     // Add a click event listener to the "Add New office" button
-    document.getElementById("btnNewOffice").addEventListener("click", displayAddofficeModal);
+    //document.getElementById("btnNewOffice").addEventListener("click", displayAddofficeModal);
     
             
         </script>

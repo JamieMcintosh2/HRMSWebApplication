@@ -1,5 +1,7 @@
 let selectedRow = '';
 let allJobData;
+let selectedJob;
+let selectedDiv = '';
 
 function getAllJobs(){
     //fetch('https://localhost:5003/api/jobs')
@@ -48,6 +50,7 @@ function populateTable(data){
             selectedRow = job.id;
             console.log('Row clicked! Job ID:', selectedRow);
             // Perform actions when a row is clicked
+            selectedJob = allJobData.find(job => job.id === selectedRow);
         });
         
         tableBody.appendChild(newRow);
@@ -137,3 +140,112 @@ function closeAddJobModal() {
     document.getElementById('jobDepartment').value = '';
     document.getElementById('jobSalary').value = '';
 }
+
+function checkEmptyFields()
+{
+        //storing all the input/select fields inside the jobAdDiv
+    // and checking if they are empty
+    const fields = document.querySelectorAll('#'+ selectedDiv +' input');
+    let isEmpty = false;
+
+    fields.forEach(field => {
+        if (field.value.trim() === '' && field.hasAttribute('required')) {
+            isEmpty = true;
+            field.classList.add('w3-border-red'); // Add red border to empty required fields
+        } else {
+            field.classList.remove('w3-border-red'); // Remove red border if field is filled or not required
+        }
+    });
+
+    if (isEmpty) {
+        alert('Please fill in all required fields.');
+    }
+    else{
+        return true;
+    }
+}
+function openModal1()
+{
+    document.getElementById('idAddJob').style.display = 'block';
+    selectedDiv = 'idAddJob';
+}
+function openModal2()
+{
+    if(selectedRow != "")
+    {
+        document.getElementById('idEditJob').style.display = 'block';
+        selectedDiv = 'idEditJob';
+        populateEditFields();
+    }
+    else
+    {
+        alert("You must click an office from the list first");
+    }
+
+}
+function populateEditFields()
+{
+        // Get the edit fields
+        const jobTitleEdit = document.getElementById('jobTitleEdit');
+        const jobDepartmentEdit = document.getElementById('jobDepartmentEdit');
+        const jobSalaryEdit = document.getElementById('jobSalaryEdit');
+
+    
+        // Populate the edit fields with data from the selected office
+        jobTitleEdit.value = selectedJob.jobTitle;
+        jobDepartmentEdit.value = selectedJob.department;
+        jobSalaryEdit.value = parseInt(selectedJob.salary);
+
+    
+        // Display the edit modal
+        document.getElementById('idEditJob').style.display = 'block';
+}
+
+function updateJobInfo() {
+    if (checkEmptyFields()) {
+        // Get the values from the edit fields
+        let newJobTitle = document.getElementById('jobTitleEdit').value;
+        let newJobDepartment = document.getElementById('jobDepartmentEdit').value;
+        let newJobSalary = document.getElementById('jobSalaryEdit').value;
+
+        // Data to send to the API
+        let dataToUpdate = [
+            { op: 'replace', path: '/jobTitle', value: newJobTitle },
+            { op: 'replace', path: '/department', value: newJobDepartment },
+            { op: 'replace', path: '/salary', value: parseInt(newJobSalary) }
+        ];
+
+        patchJobData(dataToUpdate);
+    }
+}
+
+function patchJobData(patchData) {
+    // Assuming you have an API endpoint for updating job information
+    let jobUpdateEndpoint = 'http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/jobs/' + selectedJob.id;
+
+    fetch(jobUpdateEndpoint, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json-patch+json'
+        },
+        body: JSON.stringify(patchData)
+    })
+    .then(response => {
+        // Handle the response from the server
+            if (response.ok) 
+            {
+                console.log('PATCH request successful');
+                alert('Data Successfully updated')
+                // UPDATE UI
+                location.reload();
+    
+            } else {
+                throw new Error('PATCH request failed');
+            }
+        })
+        .catch(error => 
+        {
+            console.error('Error:', error);
+            // Handle errors here
+        });
+    }
