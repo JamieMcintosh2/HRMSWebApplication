@@ -8,8 +8,135 @@ let apiEmploymentEndpoint = apiAddressEmploymentService + 'employees';
 let apiEmployeeEndpoint = apiAddressProfileService + 'employees';
 let apiEmployeeAddressEndpoint = apiAddressProfileService + 'addresses';
 let apiEmployeeEmergencyEndpoint = apiAddressProfileService + 'emContacts';
+var empPhone ="";
+var emergencyPhone="";
 
 let createdEmployeeID = null;
+
+function validateInput()
+{
+    var allInputCorrect = true;
+
+    var dobString = document.getElementById("DOB").value;
+    empPhone = document.getElementById("pNumber").value;
+    var postalCode = document.getElementById("Postcode").value;
+    emergencyPhone = document.getElementById("emergPNumber").value;
+    // Remove all spaces from the phone number
+    empPhone = empPhone.replace(/\s/g, '');
+    emergencyPhone = emergencyPhone.replace(/\s/g, '');
+
+    // Convert dobString to a Date object
+    var dob = new Date(dobString);
+    // If CheckDate returns false return false -- Invalid Age entered
+    if(!checkDate(dob))
+    {
+        return false;
+    }
+    if(!checkPhoneNumber(empPhone))
+    {
+        return false;
+    }
+    if(!checkPhoneNumber(emergencyPhone))
+    {
+        return false;
+    }
+    if(!checkPostalCode(postalCode))
+    {
+        return false;
+    }
+
+    //Checking if fields contain alphabetical characters excluding fields where this is expected
+    const fields = document.querySelectorAll('input:not(#houseNum):not(#pNumber):not(#Postcode):not(#DOB):not(#emergPNumber)');
+    var isValid = true;
+
+    fields.forEach(function (input) {
+        var inputValue = input.value.trim();
+
+        if (!checkAlphabetical(inputValue)) {
+           // alert(inputValue);
+            // Add red border to fields with non-alphabetical characters
+            input.classList.add('w3-border-red');
+            isValid = false;
+        } 
+        else 
+        {
+            // Remove red border if the field is valid
+            input.classList.remove('w3-border-red');
+        }
+    });
+
+    if (isValid) {
+        //alert("All alphabetical fields are valid!");
+        return true;
+    } else {
+        alert("Some fields contain non-alphabetical characters.");
+        return false;
+    }
+}
+function checkAlphabetical(input) {
+    //Regex checking for only alphabetical characters (allows - ' and spaces)
+    var regex = /^[a-zA-Z\s'-]+$/;
+    return regex.test(input);
+}
+function checkPostalCode(postalCode)
+{
+    // Regex provided by UK Government for UK postcodes for developers: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/488478/Bulk_Data_Transfer_-_additional_validation_valid_from_12_November_2015.pdf
+    var ukPostcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([AZa-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/;
+    //var basicPostcodeRegex = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
+    //Postcodes to test: https://club.ministryoftesting.com/t/what-are-fun-postcodes-to-use-when-testing/10772
+
+    if(ukPostcodeRegex.test(postalCode))
+    {
+        //alert("Valid Postal Code: " + postalCode);
+        return true;
+    }
+    else
+    {
+        alert("Invalid Postal Code: " + postalCode);
+        return false;
+    }
+}
+function checkPhoneNumber(phone)
+{
+    // Regex taken from Stack Overflow answer: https://stackoverflow.com/a/19133469
+    //var isInternationalRegex = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/;
+
+   //regex for UK only Phone numbers taken from Stack Overflow Answer: https://stackoverflow.com/a/11518538 
+   var isUKRegex = /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
+
+    if (isUKRegex.test(phone)) {
+        //alert("Valid phone number:"+ phone);
+        return true;
+    } else {
+        alert("Invalid phone number:"+ phone);
+        return false;
+    }
+
+}
+function checkDate(dob)
+{
+    var today = new Date();
+    //Only want to compare date not time.
+    today.setHours(0,0,0,0);
+
+    if(dob >= today)
+    {
+        alert("Date of Birth cannot be in the future");
+        return false;
+    }
+    else
+    {
+        // Calculate age
+        var age = today.getFullYear() - dob.getFullYear();
+    }
+    if(age < 16)
+    {
+        alert("Employee must be 16 years old");
+        return false;
+    }
+
+    return true;
+}
 
 function getAllJobs()
 {
@@ -137,7 +264,7 @@ function createEmployeeDTO()
         fName: document.getElementById('fName').value,
         lName: document.getElementById('lName').value,
         DOB: new Date(document.getElementById('DOB').value).toISOString(),
-        pNumber: document.getElementById('pNumber').value
+        pNumber: empPhone
     };
     return employeeDto;
 }
@@ -163,7 +290,7 @@ function createEmergencyContactsDto(createdEmployeeID) {
         fName: document.getElementById('emergFName').value,
         lName: document.getElementById('emergLName').value,
         Relationship: relationshipText,
-        pNumber: document.getElementById('emergPNumber').value
+        pNumber: emergencyPhone
     };
     return contactsDto;
 }

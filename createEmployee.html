@@ -44,6 +44,8 @@
                 <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter First Name" id="fName" style="width: 50%; margin-bottom: 2%;" required>
                 <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Last Name" id="lName" style="width: 50%; margin-bottom: 2%;" required>
                 <input class="w3-input w3-border w3-animate-input" type="date" id="DOB" style="width: 50%; margin-bottom: 2%;" required>
+                <!--<select class="w3-select w3-border" id="pExtension" style="width: 15%; margin-bottom: 1%;" required>
+                    <option value="" disabled selected></option>-->
                 <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Phone Number" id="pNumber" style="width: 50%; margin-bottom: 2%;" required>
                 <hr>
                 <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-home fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Home Address</h2>
@@ -101,6 +103,7 @@
 
     <script src="createEmployeeScripts.js"></script>
     <script>
+        //updateExtensionCodes();
         function w3_open() {
             document.getElementById("mySidebar").style.display = "block";
         }
@@ -110,17 +113,20 @@
         }
         function EmployeeInfo()
         {
-            console.log("This has worked");
+           // console.log("This has worked");
             if (checkEmptyFields()) {
-                document.getElementById('id01').style.display = 'block';
-                document.getElementById('loadingIcon').style.display = 'block'; // Show spinning icon
-                getAllJobs()
-                .then(() => getAllOffices())
-                .finally(() => {
+                if(validateInput())
+                {
+                    document.getElementById('id01').style.display = 'block';
+                    document.getElementById('loadingIcon').style.display = 'block'; // Show spinning icon
+                    getAllJobs()
+                    .then(() => getAllOffices())
+                    .finally(() => {
                     document.getElementById('loadingIcon').style.display = 'none'; // Hide spinning icon on response
                     document.querySelector('select[name="selectJob"]').style.display = 'block'; // Show selectJob
                     document.querySelector('select[name="selectOffice"]').style.display = 'block'; // Show selectOffice
                 });
+                }
             } 
         }
         function CreateNewEmployee()
@@ -133,6 +139,22 @@
             
             
         }
+
+        function updateExtensionCodes() {
+            var internationalExtensionCodes = ['USA, +1', 'UK, +44', 'India, +91', 'Japan, +81', 'China, +86', 'Poland, +48'];
+            var selectElement = document.getElementById('pExtension');
+
+            // Clear existing options
+            selectElement.innerHTML = '<option value="" disabled selected></option>';
+
+            // Add new options based on the provided extension codes array
+            internationalExtensionCodes.forEach(function (code) {
+                var option = document.createElement('option');
+                option.value = code;
+                option.textContent = code;
+                selectElement.appendChild(option);
+            });
+    }
 
         
     </script>

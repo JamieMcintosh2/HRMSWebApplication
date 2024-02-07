@@ -3,6 +3,63 @@ let allJobData;
 let selectedJob;
 let selectedDiv = '';
 
+function validateInputUpdate()
+{
+    var salaryString = document.getElementById("jobSalaryEdit").value;
+
+    if(!isNumeric(salaryString))
+    {
+        alert("Salary must be a numeric value");
+        return false;
+    }
+    if(parseInt(salaryString) > 10000000)
+    {
+        alert("Salary is too high");
+        return false;
+    }
+    // If Less than minimum wage
+    if(parseInt(salaryString) < 18964)
+    {
+        alert("Salary is too low");
+        return false;
+    }
+
+    return true;
+
+}
+
+function validateInput()
+{
+    //Must be numeric
+    var salaryString = document.getElementById("jobSalary").value;
+
+    if(!isNumeric(salaryString))
+    {
+        alert("Salary must be a numeric value");
+        return false;
+    }
+    if(parseInt(salaryString) > 10000000)
+    {
+        alert("Salary is too high");
+        return false;
+    }
+    // If Less than minimum wage
+    if(parseInt(salaryString) < 18964)
+    {
+        alert("Salary is too low");
+        return false;
+    }
+
+    return true;
+}
+
+function isNumeric(value)
+{
+    //If its Not a Number retrun false
+    return !isNaN(parseFloat(value)) && isFinite(value);
+}
+
+
 function getAllJobs(){
     //fetch('https://localhost:5003/api/jobs')
     fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/jobs')
@@ -56,43 +113,35 @@ function populateTable(data){
         tableBody.appendChild(newRow);
     });
 }
-function addNewJobtoTable(newJobData)
-{
-    const tableBody = document.getElementById('jobTB');
 
-    const newRow = document.createElement('tr');
-
-    //Self Reminder - Remember to use backticks ` not single or double quotes ' "
-    newRow.innerHTML = `<td data-th='Job ID'>${newJobData.id}</td> <td data-th='Job Title'>${newJobData.jobTitle}</td> <td data-th='Department'>${newJobData.department}</td> <td data-th='Salary'>${newJobData.salary}</td>`;
-    
-    // Add a click event listener to each row
-    newRow.addEventListener('click', () => {
-        // Remove 'clicked' class from all rows
-        const allRows = document.querySelectorAll('tr');
-        allRows.forEach(row => {
-            row.classList.remove('clicked');
-        }); 
-        newRow.classList.add('clicked'); 
-
-
-        selectedRow = newJobData.id;
-        console.log('Row clicked! Job ID:', selectedRow);
-        // Perform actions when a row is clicked
-    });
-    
-    tableBody.appendChild(newRow);
-
-}
 function createJobDto() {
+    const jobDepartmentSelect = document.getElementById('jobDepartment');
+    const selectedOption = jobDepartmentSelect.options[jobDepartmentSelect.selectedIndex];
     const jobDto = {
         jobTitle: document.getElementById('jobTitle').value,
-        Department: document.getElementById('jobDepartment').value,
+        Department: selectedOption.text,
         salary: parseInt(document.getElementById('jobSalary').value)
     };
     return jobDto;
 }
+function JobInfo()
+{
+
+    //Check for empty fields
+    if (checkEmptyFields()) 
+    {
+        //Validation check
+        if(validateInput())
+        {
+            //If all passes create the job
+            createNewJob();
+        }
+        
+    } 
+}
 
 function createNewJob(){
+
     const jobData = createJobDto(); //Getting the Job data to send to the api
     //'http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/jobs'
     //'https://localhost:5003/api/jobs'
@@ -113,7 +162,7 @@ function createNewJob(){
     .then(data => {
         console.log('Success:', data);
         createdJobID = data.id;
-        addNewJobtoTable(data);
+        location.reload();
         alert("New Job Created Successfully");
         closeAddJobModal();
         // Handle success - do something with the response from the server
@@ -145,24 +194,65 @@ function checkEmptyFields()
 {
         //storing all the input/select fields inside the jobAdDiv
     // and checking if they are empty
-    const fields = document.querySelectorAll('#'+ selectedDiv +' input');
-    let isEmpty = false;
-
-    fields.forEach(field => {
-        if (field.value.trim() === '' && field.hasAttribute('required')) {
+    if(selectedDiv === "idAddJob")
+    {
+        const fields = document.querySelectorAll('#'+ selectedDiv +' input');
+        let isEmpty = false;
+    
+        fields.forEach(field => {
+            if (field.value.trim() === '' && field.hasAttribute('required')) {
+                isEmpty = true;
+                field.classList.add('w3-border-red'); // Add red border to empty required fields
+            } else {
+                field.classList.remove('w3-border-red'); // Remove red border if field is filled or not required
+            }
+        });
+    
+        const department = document.querySelector("#jobDepartment")
+        if (department.value.trim() === '' && department.hasAttribute('required')) {
             isEmpty = true;
-            field.classList.add('w3-border-red'); // Add red border to empty required fields
+            department.classList.add('w3-border-red'); // Add red border to empty required department field
         } else {
-            field.classList.remove('w3-border-red'); // Remove red border if field is filled or not required
+            department.classList.remove('w3-border-red'); // Remove red border if department field is filled or not required
         }
-    });
+    
+        if (isEmpty) {
+            alert('Please fill in all required fields.');
+        }
+        else{
+            return true;
+        }
+    }
+    if(selectedDiv === "idEditJob")
+    {
+        const fields = document.querySelectorAll('#'+ selectedDiv +' input');
+        let isEmpty = false;
+    
+        fields.forEach(field => {
+            if (field.value.trim() === '' && field.hasAttribute('required')) {
+                isEmpty = true;
+                field.classList.add('w3-border-red'); // Add red border to empty required fields
+            } else {
+                field.classList.remove('w3-border-red'); // Remove red border if field is filled or not required
+            }
+        });
+    
+        const department = document.querySelector("#jobDepartmentEdit")
+        if (department.value.trim() === '' && department.hasAttribute('required')) {
+            isEmpty = true;
+            department.classList.add('w3-border-red'); // Add red border to empty required department field
+        } else {
+            department.classList.remove('w3-border-red'); // Remove red border if department field is filled or not required
+        }
+    
+        if (isEmpty) {
+            alert('Please fill in all required fields.');
+        }
+        else{
+            return true;
+        }
+    }
 
-    if (isEmpty) {
-        alert('Please fill in all required fields.');
-    }
-    else{
-        return true;
-    }
 }
 function openModal1()
 {
@@ -203,19 +293,24 @@ function populateEditFields()
 
 function updateJobInfo() {
     if (checkEmptyFields()) {
-        // Get the values from the edit fields
-        let newJobTitle = document.getElementById('jobTitleEdit').value;
-        let newJobDepartment = document.getElementById('jobDepartmentEdit').value;
-        let newJobSalary = document.getElementById('jobSalaryEdit').value;
+        if(validateInputUpdate())
+        {
+            // Get the values from the edit fields
+            const jobDepartmentSelect = document.getElementById('jobDepartmentEdit');
+            const selectedOption = jobDepartmentSelect.options[jobDepartmentSelect.selectedIndex];
+            let newJobTitle = document.getElementById('jobTitleEdit').value;
+            let newJobDepartment = selectedOption.text;
+            let newJobSalary = document.getElementById('jobSalaryEdit').value;
 
-        // Data to send to the API
-        let dataToUpdate = [
-            { op: 'replace', path: '/jobTitle', value: newJobTitle },
-            { op: 'replace', path: '/department', value: newJobDepartment },
-            { op: 'replace', path: '/salary', value: parseInt(newJobSalary) }
-        ];
+            // Data to send to the API
+            let dataToUpdate = [
+                { op: 'replace', path: '/jobTitle', value: newJobTitle },
+                { op: 'replace', path: '/department', value: newJobDepartment },
+                { op: 'replace', path: '/salary', value: parseInt(newJobSalary) }
+            ];
+            patchJobData(dataToUpdate);
+        }
 
-        patchJobData(dataToUpdate);
     }
 }
 

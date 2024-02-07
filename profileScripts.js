@@ -52,14 +52,7 @@ fetch(apiDevelopment + 'performance/' + employeeSelected.id)
   });
 
 
-function fillEditFields()
-{
-        //Fill Profile Fields with data from selected employee
-        document.getElementById("fName").value = employeeSelected.fName;
-        document.getElementById("lName").value = employeeSelected.lName;
-        document.getElementById("pNumber").value = employeeSelected.pNumber;
-
-}
+  
 
 function hideAllDivs() {
     const divs = ["profileInfo", "addressInfo", "employmentInfo", "emergencyInfo"];
@@ -152,6 +145,123 @@ function checkEmptyFields()
         return true;
     }
 }
+
+function validateInputEmergency(emergencyFName, emergencyLName, emergencyPhone)
+{
+    if(!checkPhoneNumber(emergencyPhone))
+    {
+        return false;
+    }
+    if(!checkAlphabetical(emergencyFName) || !checkAlphabetical(emergencyLName))
+    {
+        alert("First Name or Last Name contain non-alphabetical characters.");
+        return false;
+    }
+    return true;
+}
+
+function validateInputProfile(empFName, empLName, empPhone)
+{
+    if(!checkPhoneNumber(empPhone))
+    {
+        return false;
+    }
+    if(!checkAlphabetical(empFName) || !checkAlphabetical(empLName))
+    {
+        alert("First Name or Last Name contain non-alphabetical characters.");
+        return false;
+    }
+    return true;
+}
+function validateInputAddress(empPostcode, empCity, empCountry, houseNum)
+{
+    if(!checkPostalCode(empPostcode))
+    {
+        return false;
+    }
+    if(!checkAlphabetical(empCity) || !checkAlphabetical(empCountry))
+    {
+        alert("City or Country contain non-alphabetical characters.");
+        return false;
+    }
+    if(!isNumeric(houseNum))
+    {
+        alert("House number must be numeric");
+        return false;
+    }
+    return true;
+}
+function isNumeric(value)
+{
+    //If its Not a Number retrun false
+    return !isNaN(parseFloat(value)) && isFinite(value);
+}
+
+function checkAlphabetical(input) {
+    //Regex checking for only alphabetical characters (allows - ' and spaces)
+    var regex = /^[a-zA-Z\s'-]+$/;
+    return regex.test(input);
+}
+function checkPostalCode(postalCode)
+{
+    // Regex provided by UK Government for UK postcodes for developers: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/488478/Bulk_Data_Transfer_-_additional_validation_valid_from_12_November_2015.pdf
+    var ukPostcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([AZa-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/;
+    //var basicPostcodeRegex = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
+    //Postcodes to test: https://club.ministryoftesting.com/t/what-are-fun-postcodes-to-use-when-testing/10772
+
+    if(ukPostcodeRegex.test(postalCode))
+    {
+        //alert("Valid Postal Code: " + postalCode);
+        return true;
+    }
+    else
+    {
+        alert("Invalid Postal Code: " + postalCode);
+        return false;
+    }
+}
+function checkPhoneNumber(phone)
+{
+    // Regex taken from Stack Overflow answer: https://stackoverflow.com/a/19133469
+    //var isInternationalRegex = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/;
+
+   //regex for UK only Phone numbers taken from Stack Overflow Answer: https://stackoverflow.com/a/11518538 
+   var isUKRegex = /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
+
+    if (isUKRegex.test(phone)) {
+        //alert("Valid phone number:"+ phone);
+        return true;
+    } else {
+        alert("Invalid phone number:"+ phone);
+        return false;
+    }
+
+}
+function checkDate(dob)
+{
+    var today = new Date();
+    //Only want to compare date not time.
+    today.setHours(0,0,0,0);
+
+    if(dob >= today)
+    {
+        alert("Date of Birth cannot be in the future");
+        return false;
+    }
+    else
+    {
+        // Calculate age
+        var age = today.getFullYear() - dob.getFullYear();
+    }
+    if(age < 16)
+    {
+        alert("Employee must be 16 years old");
+        return false;
+    }
+
+    return true;
+}
+
 function UpdateEmploymentInfo()
 {
     if(checkEmptyFields())
@@ -239,21 +349,23 @@ function UpdateEmergencyInfo()
 {
     if(checkEmptyFields())
     {
-        let endpoint = apiAddress + 'emContacts/' + employeeSelected.id;
         let newFName = document.getElementById('emergFName').value;
         let newLName = document.getElementById('emergLName').value;
         //let newRelationship = document.getElementById('relationship').value;
         let newEmergPhone = document.getElementById('emergPNumber').value;
-
-        const selection = document.getElementById('relationship');
-            //data to send to the api
-        let dataToUpdate = [
-            { op: 'replace', path: '/fName', value: newFName },
-            { op: 'replace', path: '/lName', value: newLName },
-            { op: 'replace', path: '/relationship', value: selection.options[selection.selectedIndex].text },
-            { op: 'replace', path: '/pNumber', value: newEmergPhone }
-        ];
-        patchEmergencyData(dataToUpdate, endpoint);
+        if(validateInputEmergency(newFName, newLName, newEmergPhone))
+        {
+            let endpoint = apiAddress + 'emContacts/' + employeeSelected.id;
+            const selection = document.getElementById('relationship');
+                //data to send to the api
+            let dataToUpdate = [
+                { op: 'replace', path: '/fName', value: newFName },
+                { op: 'replace', path: '/lName', value: newLName },
+                { op: 'replace', path: '/relationship', value: selection.options[selection.selectedIndex].text },
+                { op: 'replace', path: '/pNumber', value: newEmergPhone }
+            ];
+            patchEmergencyData(dataToUpdate, endpoint);
+        }
     }
 }
 
@@ -275,15 +387,8 @@ function patchEmergencyData(dataToUpdate, endpoint)
             console.log('PATCH request successful');
             alert('Data Successfully updated')
             // UPDATE UI
-            let newFName = dataToUpdate.find(item => item.path === '/fName').value;
-            let newLName = dataToUpdate.find(item => item.path === '/lName').value;
-            let newRelationship = dataToUpdate.find(item => item.path === '/relationship').value;
-            let newPNumber = dataToUpdate.find(item => item.path === '/pNumber').value;
 
-            document.getElementById('emergencyFName').textContent = newFName;
-            document.getElementById('emergencyLName').textContent = newLName;
-            document.getElementById('emergRelationship').textContent = newRelationship;
-            document.getElementById('EmergPhoneNum').textContent = newPNumber;
+            location.reload();
 
 
         } else {
@@ -300,23 +405,29 @@ function patchEmergencyData(dataToUpdate, endpoint)
 
 function UpdateAddressInfo()
 {
+    let newPostcode = document.getElementById('Postcode').value;
+    let newCity = document.getElementById('City').value;
+    let newCountry = document.getElementById('Country').value;
+    let HouseNum = document.getElementById('houseNum').value;
     if(checkEmptyFields())
     {
-        let endpoint = apiAddress + 'addresses/' + employeeSelected.id;
-        let newHouseNum = parseInt(document.getElementById('houseNum').value);
-        let newStreet = document.getElementById('Street').value;
-        let newPostcode = document.getElementById('Postcode').value;
-        let newCity = document.getElementById('City').value;
-        let newCountry = document.getElementById('Country').value;
-            //data to send to the api
-        let dataToUpdate = [
-            { op: 'replace', path: '/houseNum', value: newHouseNum },
-            { op: 'replace', path: '/street', value: newStreet },
-            { op: 'replace', path: '/postcode', value: newPostcode },
-            { op: 'replace', path: '/city', value: newCity },
-            { op: 'replace', path: '/country', value: newCountry }
-        ];
-        patchAddressData(dataToUpdate, endpoint);
+        if(validateInputAddress(newPostcode, newCity, newCountry, HouseNum))
+        {
+            let endpoint = apiAddress + 'addresses/' + employeeSelected.id;
+            let newHouseNum = parseInt(HouseNum);
+            let newStreet = document.getElementById('Street').value;
+            
+    
+                //data to send to the api
+            let dataToUpdate = [
+                { op: 'replace', path: '/houseNum', value: newHouseNum },
+                { op: 'replace', path: '/street', value: newStreet },
+                { op: 'replace', path: '/postcode', value: newPostcode },
+                { op: 'replace', path: '/city', value: newCity },
+                { op: 'replace', path: '/country', value: newCountry }
+            ];
+            patchAddressData(dataToUpdate, endpoint);
+        }
     }
 }
 function patchAddressData(dataToUpdate, endpoint)
@@ -337,10 +448,7 @@ function patchAddressData(dataToUpdate, endpoint)
             console.log('PATCH request successful');
             alert('Data Successfully updated')
             // UPDATE UI
-            let newCity = dataToUpdate.find(item => item.path === '/city').value;
-            let newCountry = dataToUpdate.find(item => item.path === '/country').value;
-
-            document.getElementById('cityCountry').textContent = newCity + ', ' + newCountry;
+            location.reload();
 
 
         } else {
@@ -358,17 +466,20 @@ function UpdateProfileInfo()
 {
     if(checkEmptyFields())
     {
-        let endpoint = apiAddress + 'employees/' + employeeSelected.id;
         let newFName = document.getElementById('fName').value;
         let newLName = document.getElementById('lName').value;
         let newPhoneNumber = document.getElementById('pNumber').value;
-            //data to send to the api
-        let dataToUpdate = [
-            { op: 'replace', path: '/fName', value: newFName },
-            { op: 'replace', path: '/lName', value: newLName },
-            { op: 'replace', path: '/pNumber', value: newPhoneNumber }
-        ];
-        patchProfileData(dataToUpdate, endpoint);
+        if(validateInputProfile(newFName, newLName, newPhoneNumber))
+        {
+            let endpoint = apiAddress + 'employees/' + employeeSelected.id;
+                //data to send to the api
+            let dataToUpdate = [
+                { op: 'replace', path: '/fName', value: newFName },
+                { op: 'replace', path: '/lName', value: newLName },
+                { op: 'replace', path: '/pNumber', value: newPhoneNumber }
+            ];
+            patchProfileData(dataToUpdate, endpoint);
+        }
     }
 }
 
@@ -390,11 +501,9 @@ function patchProfileData(dataToUpdate, endpoint)
             console.log('PATCH request successful');
             alert('Data Successfully updated')
             // UPDATE UI
-            let newFName = dataToUpdate.find(item => item.path === '/fName').value;
-            let newLName = dataToUpdate.find(item => item.path === '/lName').value;
-            let newPhoneNumber = dataToUpdate.find(item => item.path === '/pNumber').value;
-            document.getElementById('empName').textContent = newFName + ' ' + newLName;
-            document.getElementById('EmpPhoneNum').textContent = newPhoneNumber;
+            // UPDATE UI
+            location.reload();
+
 
         } else {
             throw new Error('PATCH request failed');
@@ -424,7 +533,8 @@ function patchEmergencyContact(dataToUpdate)
         if (response.ok) 
         {
             console.log('PATCH request successful');
-            // You might want to update UI or handle success here
+            // UPDATE UI
+            location.reload();
         } else {
             throw new Error('PATCH request failed');
         }
@@ -489,25 +599,13 @@ function fillSelectOptions(data, selectId, errorMessage, selectedEmployeeData) {
 
 }
 
-function setNameText()
-{
-    // handling name element
-    const empNameElement = document.getElementById('empName');
-    let employeeName = employeeSelected.fName.concat(" ", employeeSelected.lName);
-    empNameElement.textContent = employeeName;
-    //Handling age element
-    const empAgeElement = document.getElementById('empAge');
-    empAgeElement.textContent = employeeSelected.age;
-        //Handling phone number element
-    const phoneNumElement = document.getElementById('EmpPhoneNum');
-    phoneNumElement.textContent = employeeSelected.pNumber;
-}
 
 
 
 // Performing all of the GET requests concurrently
 
 // Define all the API endpoints
+let apiProfileEndpoint = apiAddress + 'employees/' + employeeSelected.id;
 let apiAddressEndpoint = apiAddress + 'addresses/' + employeeSelected.id;
 let apiEmergencyEndpoint = apiAddress + 'emContacts/' + employeeSelected.id;
 let apiEmployeeJobEndpoint = apiAddressEmploymentService + 'employees/' + employeeSelected.id;
@@ -516,6 +614,7 @@ let apiAllOfficesEndpoint = apiAddressEmploymentService + 'offices';
 
 // Create an array of fetch Promises
 let fetchPromises = [
+    fetch(apiProfileEndpoint),
     fetch(apiAddressEndpoint),
     fetch(apiEmergencyEndpoint),
     fetch(apiEmployeeJobEndpoint),
@@ -535,7 +634,26 @@ Promise.all(fetchPromises)
         }));
     })
     .then(dataArray => {
-        const [addressData, emergencyData, employeeJobData, allJobsData, allOfficesData] = dataArray;
+        const [profileData, addressData, emergencyData, employeeJobData, allJobsData, allOfficesData] = dataArray;
+
+
+        //work with Profile Data
+        // handling name element
+        const empNameElement = document.getElementById('empName');
+        let employeeName = profileData.fName.concat(" ", profileData.lName);
+        empNameElement.textContent = employeeName;
+        //Handling age element
+        const empAgeElement = document.getElementById('empAge');
+        empAgeElement.textContent = profileData.age;
+        //Handling phone number element
+        const phoneNumElement1 = document.getElementById('EmpPhoneNum');
+        phoneNumElement1.textContent = profileData.pNumber;
+
+        //Handling Edit Fields
+                //Fill Profile Fields with data from selected employee
+                document.getElementById("fName").value = profileData.fName;
+                document.getElementById("lName").value = profileData.lName;
+                document.getElementById("pNumber").value = profileData.pNumber;
 
         // Work with address data
         const empCityCountryElement = document.getElementById('cityCountry');
@@ -568,7 +686,8 @@ Promise.all(fetchPromises)
         document.getElementById("emergPNumber").value = emergencyData.pNumber;
         //Select fields were awkward
         //Had to swap around the values and text data to get them to match
-        //e.g. DB Stores "Wife" not the numeric value which is 4. So I had to remap to "Wife" to the value of 4 - messy oversight
+        //e.g. DB Stores "Wife" not the numeric value which is 4. So I had to remap to "Wife" to the value of 4 
+        //- Later realised I could have just set the value to the correct string
         // Mapping object for text values to numeric values
         const relationshipMapping = {
             "Father": 1,

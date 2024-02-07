@@ -80,6 +80,8 @@ function CreateFeedback() {
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
+        alert("There was an issue communicating to the Server, please try again later");
+        location.reload();
         // Handle error - alert the user or perform other actions
     });
 }
@@ -107,6 +109,8 @@ function CreatePerformance() {
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
+            alert("There was an issue communicating to the Server, please try again later");
+            location.reload();
             // Handle error - alert the user or perform other actions
         });
 }

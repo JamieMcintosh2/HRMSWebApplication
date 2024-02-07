@@ -209,7 +209,6 @@
     <script src="profileScripts.js"></script>
     <script>
         let isEmergButtonAdded = false;
-        setNameText();
         // Script to open and close sidebar
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
@@ -225,7 +224,6 @@ function openModal()
   document.getElementById("profileInfo").style.display = "block";
   const btnProfile = document.getElementById("btnProfile");
     btnProfile.classList.remove("w3-black");
-    fillEditFields();
 
     // Add the new class
     btnProfile.classList.add("w3-white");

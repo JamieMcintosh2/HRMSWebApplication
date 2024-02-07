@@ -56,6 +56,7 @@ function populateTable(data){
         tableBody.appendChild(newRow);
     });
 }
+/*
 function addNewofficetoTable(newofficeData)
 {
     const tableBody = document.getElementById('officeTB');
@@ -83,47 +84,75 @@ function addNewofficetoTable(newofficeData)
     
     tableBody.appendChild(newRow);
 
+}*/
+function validateInputFields()
+{
+    if (checkEmptyFields())
+    {
+        if(checkPostalCode())
+        {
+            if(validateInput())
+            {
+                return true;
+            }
+            
+        }
+    }
+    return false;
 }
+
 function createofficeDto() {
-    const officeDto = {
-        buildingNum: parseInt(document.getElementById('officeNum').value),
-        street: document.getElementById('officeStreet').value,
-        postcode: document.getElementById('officePostcode').value,
-        city: document.getElementById('officeCity').value,
-        country: document.getElementById('officeCountry').value
-    };
-    return officeDto;
+    if(checkEmptyFields())
+    {
+        if(checkPostalCode())
+        {
+            const officeDto = {
+                buildingNum: parseInt(document.getElementById('officeNum').value),
+                street: document.getElementById('officeStreet').value,
+                postcode: document.getElementById('officePostcode').value,
+                city: document.getElementById('officeCity').value,
+                country: document.getElementById('officeCountry').value
+            };
+            return officeDto;
+        }
+    }
+
 }
 
 function createNewOffice(){
-    const officeData = createofficeDto(); //Getting the office data to send to the api
+    if(validateInputFields())
+    {
+        const officeData = createofficeDto(); //Getting the office data to send to the api
 
-    //fetch('https://localhost:5003/api/offices', {
-    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/offices', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(officeData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        createdofficeID = data.id;
-        addNewofficetoTable(data);
-        alert("New office Created Successfully");
-        closeAddofficeModal();
-        // Handle success - do something with the response from the server
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-        // Handle error - alert the user or perform other actions
-    });
+        //fetch('https://localhost:5003/api/offices', {
+        fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/offices', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(officeData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            createdofficeID = data.id;
+            //addNewofficetoTable(data);
+            location.reload();
+            alert("New office Created Successfully");
+            closeAddofficeModal();
+            // Handle success - do something with the response from the server
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            // Handle error - alert the user or perform other actions
+        });
+
+    }
 
 }
 
@@ -185,6 +214,48 @@ function populateEditFields()
         // Display the edit modal
         document.getElementById('idEditOffice').style.display = 'block';
 }
+
+function checkAlphabetical(input) {
+    //Regex checking for only alphabetical characters (allows - ' and spaces)
+    var regex = /^[a-zA-Z\s'-]+$/;
+    return regex.test(input);
+}
+function checkPostalCode()
+{
+    let postalCode = ""
+    let field;
+    if(selectedDiv === "idEditOffice")
+    {
+        postalCode = document.getElementById('officePostcodeEdit').value;
+        field = document.getElementById('officePostcodeEdit');
+    }
+    if(selectedDiv === "idAddOffice")
+    {
+        postalCode = document.getElementById('officePostcode').value;
+        field = document.getElementById('officePostcode');
+    }
+    if(selectedDiv === "")
+    {
+        alert("There was an error with the postal code");
+    }
+    
+    // Regex provided by UK Government for UK postcodes for developers: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/488478/Bulk_Data_Transfer_-_additional_validation_valid_from_12_November_2015.pdf
+    var ukPostcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([AZa-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/;
+    //var basicPostcodeRegex = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
+    //Postcodes to test: https://club.ministryoftesting.com/t/what-are-fun-postcodes-to-use-when-testing/10772
+
+    if(ukPostcodeRegex.test(postalCode))
+    {
+        //alert("Valid Postal Code: " + postalCode);
+        return true;
+    }
+    else
+    {
+        alert("Invalid Postal Code: " + postalCode);
+        field.classList.add('w3-border-red');
+        return false;
+    }
+}
 function checkEmptyFields()
 {
         //storing all the input/select fields inside the jobAdDiv
@@ -209,11 +280,49 @@ function checkEmptyFields()
     }
 }
 
+function validateInput()
+{
+    let fields = "";
+    if(selectedDiv==="idAddOffice")
+    {
+        fields = document.querySelectorAll('#' + selectedDiv + ' input#officeCity, #' + selectedDiv + ' input#officeCountry');
+    }
+    if(selectedDiv==="idEditOffice")
+    {
+        fields = document.querySelectorAll('#' + selectedDiv + ' input#officeCityEdit, #' + selectedDiv + ' input#officeCountryEdit');
+    }
+    
+    var isValid = true;
+
+    fields.forEach(function (input) {
+        var inputValue = input.value.trim();
+
+        if (!checkAlphabetical(inputValue)) {
+           // alert(inputValue);
+            // Add red border to fields with non-alphabetical characters
+            input.classList.add('w3-border-red');
+            isValid = false;
+        } 
+        else 
+        {
+            // Remove red border if the field is valid
+            input.classList.remove('w3-border-red');
+        }
+    });
+
+    if (isValid) {
+        //alert("All alphabetical fields are valid!");
+        return true;
+    } else {
+        alert("Some fields contain non-alphabetical characters.");
+        return false;
+    }
+}
+
 function updateOfficeInfo()
 {
-    if(checkEmptyFields())
+    if(validateInputFields())
     {
-        //let endpoint = apiAddress + 'addresses/' + employeeSelected.id;
         let newOfficeNum = parseInt(document.getElementById('officeNumEdit').value);
         let newStreet = document.getElementById('officeStreetEdit').value;
         let newPostcode = document.getElementById('officePostcodeEdit').value;

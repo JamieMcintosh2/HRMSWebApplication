@@ -65,9 +65,22 @@
                 <p id="loadingIcon" style="display: none;"><i class="fa fa-refresh w3-spin" style="font-size:64px"></i></p>
                 <br>
                 <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Job Title" id="jobTitle" style="width: 50%; margin-bottom: 2%;" required>
-                <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Department" id="jobDepartment" style="width: 50%; margin-bottom: 2%;" required>
+                <!--<input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Department" id="jobDepartment" style="width: 50%; margin-bottom: 2%;" required>
+                -->
+                  <select class="w3-select w3-border" name="jobDepartment" id="jobDepartment" style="width: 50%; margin-bottom: 2%;" required>
+                  <option value="" disabled selected>Select Department</option>
+                  <option value="IT">IT</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Human Resources">Human Resources</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Sales">Sales</option>
+                  <option value="Legal">Legal</option>
+                  <option value="Operations">Operations</option>
+                  <option value="Customer Support">Customer Support</option>
+                  <option value="Other">Other</option>
+                </select>
                 <input class="w3-input w3-border w3-animate-input" type="number" placeholder="Enter Salary" id="jobSalary" style="width: 50%; margin-bottom: 2%;" required>
-                <button onclick="createNewJob()" class="w3-btn w3-teal">Submit</button>
+                <button onclick="JobInfo()" class="w3-btn w3-teal">Submit</button>
               </div>
             </div>
         </div>
@@ -82,7 +95,20 @@
               <p id="loadingIcon" style="display: none;"><i class="fa fa-refresh w3-spin" style="font-size:64px"></i></p>
               <br>
               <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Job Title" id="jobTitleEdit" style="width: 50%; margin-bottom: 2%;" required>
-              <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Department" id="jobDepartmentEdit" style="width: 50%; margin-bottom: 2%;" required>
+              <!--<input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Department" id="jobDepartmentEdit" style="width: 50%; margin-bottom: 2%;" required>
+              -->
+                <select class="w3-select w3-border" name="jobDepartmentEdit" id="jobDepartmentEdit" style="width: 50%; margin-bottom: 2%;" required>
+                <option value="" disabled selected>Select Department</option>
+                <option value="IT">IT</option>
+                <option value="Finance">Finance</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Sales">Sales</option>
+                <option value="Legal">Legal</option>
+                <option value="Operations">Operations</option>
+                <option value="Customer Support">Customer Support</option>
+                <option value="Other">Other</option>
+              </select>
               <input class="w3-input w3-border w3-animate-input" type="number" placeholder="Enter Salary" id="jobSalaryEdit" style="width: 50%; margin-bottom: 2%;" required>
               <button onclick="updateJobInfo()" class="w3-btn w3-teal">Submit</button>
             </div>
