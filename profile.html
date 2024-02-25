@@ -13,25 +13,48 @@
 
 </head>
 <body class="w3-light-grey">
-<!-- Burger Menu -->
+  <header class="testHead">
+    <a href="#" class="logo">
+      <img src="logo.png" alt="Logo">
+    </a>
+
+    <input type="checkbox" id="check">
+    <label for="check" class="burgerIcon">
+      <i class="fa-solid fa-bars" id="menu-icon"></i>
+      <i class="fa-solid fa-xmark" id="close-icon"></i>
+
+    </label>
+
+    <nav class = "navyBar">
+      <a href="EmployeeList.html" style="--i:0">Manage Employees</a>
+      <a href="createEmployee.html" style="--i:1">New Employee</a>
+      <a href="generateContent.html" style="--i:2">Recruitment</a>
+      <a href="manageJobs.html" style="--i:3"> Manage Jobs</a>
+      <a href="manageOffices.html" style="--i:4">Manage Offices</a>
+    </nav>
+
+  </header>
+
+  <!---
+ Burger Menu 
 <div class="w3-bar w3-teal" id="burgerMenu">
   <button class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-light-grey" onclick="w3_open()"><i class="fa-solid fa-bars"></i></button>
 </div>
 
-<!-- Sidebar (hidden by default) -->
+Sidebar (hidden by default) 
 <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-large w3-animate-left" style="display:none;z-index:9999;width:10%;min-width:300px;" id="mySidebar">
   <div class="w3-bar w3-teal" style="height: 15%;">
     <button class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-light-grey" onclick="w3_close()"><i class="fa-solid fa-arrow-left"></i></button>
   </div>
 
-        <!-- Manage Employees dropdown -->
+         Manage Employees dropdown 
         <a href="EmployeeList.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Employee List</a>
         <a href="createEmployee.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Add Employee</a>
         <a href="generateContent.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Generate Content</a>
         <a href="manageJobs.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Manage Jobs</a>
         <a href="manageOffices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-text-teal">Manage Offices</a>
 </nav>
-
+-->
     <!-- Page Container -->
     <div class="w3-content w3-margin-top" style="max-width:1400px; padding-bottom: 10%;" onclick="w3_close()">
       <button onclick="openModal()" class="w3-button w3-teal" style=" margin-left: 10px; font-size: 20px; right: 5%; position: absolute;">
@@ -217,6 +240,7 @@ function w3_open() {
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
 }
+AddEmpInfoFromLocal();
 function openModal()
 {
   document.getElementById('id01').style.display = 'block';

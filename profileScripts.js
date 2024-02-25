@@ -51,7 +51,27 @@ fetch(apiDevelopment + 'performance/' + employeeSelected.id)
     console.error('Error:', error);
   });
 
+function AddEmpInfoFromLocal()
+{
+            //work with Profile Data
+        // handling name element
+        const empNameElement = document.getElementById('empName');
+        let employeeName = employeeSelected.fName.concat(" ", employeeSelected.lName);
+        empNameElement.textContent = employeeName;
+        //Handling age element
+        const empAgeElement = document.getElementById('empAge');
+        empAgeElement.textContent = employeeSelected.age;
+        //Handling phone number element
+        const phoneNumElement1 = document.getElementById('EmpPhoneNum');
+        phoneNumElement1.textContent = employeeSelected.pNumber;
 
+        //Handling Edit Fields
+                //Fill Profile Fields with data from selected employee
+                document.getElementById("fName").value = employeeSelected.fName;
+                document.getElementById("lName").value = employeeSelected.lName;
+                document.getElementById("pNumber").value = employeeSelected.pNumber;
+
+}
   
 
 function hideAllDivs() {
@@ -270,6 +290,13 @@ function UpdateEmploymentInfo()
         const newJobId = document.getElementById('selectJob');
         let newOfficeId = document.getElementById('selectOffice');
         let newEmergPhone = document.getElementById('emergPNumber').value;
+        let newJobData = newJobId.options[newJobId.selectedIndex].value;
+        let newOfficeData = newOfficeId.options[newOfficeId.selectedIndex].value
+        if(newJobData === "Error - Data not loaded" || new OfficeData === "Error - Data not loaded")
+        {
+            alert("Request Denied - Please try again later");
+            return;
+        }
 
 
             //data to send to the api
@@ -623,16 +650,20 @@ let fetchPromises = [
 ];
 
 // Execute all requests concurrently
-Promise.all(fetchPromises)
-    .then(responses => {
-        // Process responses
-        return Promise.all(responses.map(response => {
+Promise.all(fetchPromises.map(promise => {
+    return promise
+        .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
-        }));
-    })
+        })
+        .catch(error => {
+            // Handle individual API call errors
+            console.error('There was a problem with one or more of the API calls:', error);
+            return null; 
+        });
+}))
     .then(dataArray => {
         const [profileData, addressData, emergencyData, employeeJobData, allJobsData, allOfficesData] = dataArray;
 
@@ -700,13 +731,15 @@ Promise.all(fetchPromises)
         const relationshipFromDB = emergencyData.relationship;
         document.getElementById("relationship").value = relationshipMapping[relationshipFromDB];
 
-        // Usage example for jobs
+
+// Work with employee job data
+        // Usage for jobs
         fillSelectOptions(allJobsData, 'selectJob', 'Error - Data not loaded', employeeJobData);
 
-        // Usage example for offices
+        // Usage for offices
         fillSelectOptions(allOfficesData, 'selectOffice', 'Error - Data not loaded', employeeJobData);
 
-        // Work with employee job data
+        
         //selectedEmployeeData = employeeJobData;
         const departmentElement = document.getElementById('jobDepartment');
         departmentElement.innerHTML = `<b>${employeeJobData.job.department} Department</b>`;

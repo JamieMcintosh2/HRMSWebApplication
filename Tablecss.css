@@ -11,8 +11,10 @@
 
 .rwd-table tr:first-child {
   border-top: none;
-  background: #008080;
-  color: #fff;
+  /*background: #008080;*/
+  background: rgba(0, 128, 128, 0.692);
+  backdrop-filter: blur(50px);
+  color: white;
 }
 
 .rwd-table tr {
