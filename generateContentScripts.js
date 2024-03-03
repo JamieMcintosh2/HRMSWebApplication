@@ -23,6 +23,8 @@ function toggleDivs() {
         responsePara.innerHTML = "";
         responsePara.style.display = "none"
         displayedDiv = 1
+        document.getElementById("jobAdLanguage").removeAttribute("required");
+        document.getElementById("QLanguage").setAttribute("required", "");
     } 
     // ELSE do the opposite
     else if (selectedValue === '2') {
@@ -31,16 +33,20 @@ function toggleDivs() {
         responsePara.innerHTML = "";
         responsePara.style.display = "none"
         displayedDiv = 2;
+        document.getElementById("QLanguage").removeAttribute("required");
+        document.getElementById("jobAdLanguage").setAttribute("required", "");
     }
 }
 
 function createJobAdDTO()
 {
+    const selection = document.getElementById('jobAdLanguage');
     const jobAdDto = {
         jobTitle: document.getElementById('jobAdTitle').value,
         keySkills: document.getElementById('jobAdSkills').value,
         jobDescription: document.getElementById('jobAdDescription').value,
         benefits: document.getElementById('jobAdBenefits').value,
+        language: selection.options[selection.selectedIndex].text
     };
     return jobAdDto;
 }
@@ -48,13 +54,13 @@ function createJobAdDTO()
 function createQuestionsDTO()
 {
     //Fixthis
-    const selection = document.getElementById('interviewFormat');
+    const selection = document.getElementById('QLanguage');
 
     const questionsDto = {
         jobTitle: document.getElementById('JobQTitle').value,
         keySkills: document.getElementById('JobQSkills').value,
         behaviouralTraits: document.getElementById('JobQTraits').value,
-        interviewFormat: selection.options[selection.selectedIndex].text
+        language: selection.options[selection.selectedIndex].text
     };
     console.log(questionsDto);
     return questionsDto;
@@ -64,7 +70,7 @@ function checkEmptyFieldsJobAd()
 {
         //storing all the input/select fields inside the jobAdDiv
     // and checking if they are empty
-    const fields = document.querySelectorAll('#jobAdDiv input');
+    const fields = document.querySelectorAll('#jobAdDiv input, select');
     let isEmpty = false;
 
     fields.forEach(field => {

@@ -57,12 +57,12 @@
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Job Title" id="JobQTitle" style="width: 50%; margin-bottom: 2%;" required>
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Key Skills" id="JobQSkills" style="width: 50%; margin-bottom: 2%;" required>
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Desired Traits, leadership, communication etc." id="JobQTraits" style="width: 50%; margin-bottom: 2%;" required>
-                    <select class="w3-select w3-border" id="interviewFormat" name="interviewFormat" style="width: 50%; margin-bottom: 2%;" required>
-                        <option value="" disabled selected>Select Interview Format</option>
-                        <option value="1">Technical</option>
-                        <option value="2">Individual</option>
-                        <option value="3">Group</option>
-                        <option value="4">Behavioural</option>
+                    <select class="w3-select w3-border" id="QLanguage" name="QLanguage" style="width: 50%; margin-bottom: 2%;" required>
+                        <option value="" disabled selected>Select Language</option>
+                        <option value="1">English</option>
+                        <option value="2">Polish</option>
+                        <option value="3">Spanish</option>
+                        <option value="4">Romanian</option>
                     </select>
                     <br>
                     <button onclick="GenerateInterviewQs()" class="w3-btn w3-teal">Generate</button>
@@ -74,6 +74,13 @@
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Key Skills" id="jobAdSkills" style="width: 50%; margin-bottom: 2%;" required>
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Job Description" id="jobAdDescription" style="width: 50%; margin-bottom: 2%;" required>
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Benefits" id="jobAdBenefits" style="width: 50%; margin-bottom: 2%;" required>
+                    <select class="w3-select w3-border" id="jobAdLanguage" name="jobAdLanguage" style="width: 50%; margin-bottom: 2%;" required>
+                        <option value="" disabled selected>Select Language</option>
+                        <option value="1">English</option>
+                        <option value="2">Polish</option>
+                        <option value="3">Spanish</option>
+                        <option value="4">Romanian</option>
+                    </select>
                     <br>
                     <button onclick="GenerateJobAd()" class="w3-btn w3-teal">Generate</button>
                 </div>
@@ -89,7 +96,7 @@
             </div>
         <hr>
         </div>
-        <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-white w3-text-black w3-card-4">
             <div class="w3-container">
                 <p id="responsePara" style="display: none;"> Placeholder</p>
             </div>
