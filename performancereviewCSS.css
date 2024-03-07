@@ -1,0 +1,28 @@
+.w3-table-all td:not(.first-col) {
+    width: 15%; /* Adjusting spacing for all but the questions */
+}
+
+.w3-responsive {
+    overflow-x: auto;
+}
+
+.w3-table-all {
+    width: 100%;
+    border-collapse: collapse; /* Ensure consistent border spacing */
+}
+
+.w3-table-all th,
+.w3-table-all td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd; /* Add borders to cells */
+}
+@media screen and (max-width: 600px) {
+
+    .w3-table-all th,
+    .w3-table-all td {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
