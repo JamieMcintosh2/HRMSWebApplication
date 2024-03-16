@@ -34,7 +34,7 @@ function getAllEmployeeProfile(){
   .then(data => {
     // Handle the data received from the API
     console.log('Data received:', data);
-    // You can perform operations with the 'data' here
+    // perform operations with the 'data' here
     employeeData = data;
     populateTable(data);
   })
