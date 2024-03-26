@@ -62,7 +62,7 @@ function isNumeric(value)
 
 function getAllJobs(){
     //fetch('https://localhost:5003/api/jobs')
-    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/jobs')
+    fetch('https://employmentservice-web-app.azurewebsites.net/api/jobs')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok.');
@@ -145,7 +145,7 @@ function createNewJob(){
     const jobData = createJobDto(); //Getting the Job data to send to the api
     //'http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/jobs'
     //'https://localhost:5003/api/jobs'
-    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/jobs', 
+    fetch('https://employmentservice-web-app.azurewebsites.net/api/jobs', 
     {
         method: 'POST',
         headers: {
@@ -316,7 +316,7 @@ function updateJobInfo() {
 
 function patchJobData(patchData) {
     // Assuming you have an API endpoint for updating job information
-    let jobUpdateEndpoint = 'http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/jobs/' + selectedJob.id;
+    let jobUpdateEndpoint = 'https://employmentservice-web-app.azurewebsites.net/api/jobs/' + selectedJob.id;
 
     fetch(jobUpdateEndpoint, {
         method: 'PATCH',

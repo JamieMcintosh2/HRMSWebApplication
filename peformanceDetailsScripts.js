@@ -1,5 +1,5 @@
-let apiEndpointFH = "http://developmentservicev1.cnd3fxdgewd0hcc8.uksouth.azurecontainer.io/api/feedbackHistory/"
-let apiEndpointPH = "http://developmentservicev1.cnd3fxdgewd0hcc8.uksouth.azurecontainer.io/api/performanceHistory/"
+let apiEndpointFH = "https://developmentservice.azurewebsites.net/api/feedbackHistory/"
+let apiEndpointPH = "https://developmentservice.azurewebsites.net/api/performanceHistory/"
 let employeeSelected = JSON.parse(localStorage.getItem('selectedEmployee'));
 let currentPerformance = JSON.parse(localStorage.getItem('empPerformance'));
 let currentFeedback = JSON.parse(localStorage.getItem('empFeedback'));

@@ -1,9 +1,9 @@
 //let apiAddress = 'https://localhost:5000/api/';
-let apiAddress = 'http://profileservicev1.hpbjgbfgexcqehau.uksouth.azurecontainer.io/api/';
-let apiDevelopment = 'http://developmentservicev1.cnd3fxdgewd0hcc8.uksouth.azurecontainer.io/api/'
+let apiAddress = 'https://profile-web-app-hr.azurewebsites.net/api/';
+let apiDevelopment = 'https://developmentservice.azurewebsites.net/api/'
 //let apiAddressEmploymentService = 'https://localhost:5003/api/';
 //'http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/offices'
-let apiAddressEmploymentService = 'http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/';
+let apiAddressEmploymentService = 'https://employmentservice-web-app.azurewebsites.net/api/';
 let employeeSelected = JSON.parse(localStorage.getItem('selectedEmployee'));
 let selectedDiv = "profileInfo"; // Default selected div
 let empPerformance;

@@ -55,7 +55,7 @@ function setBadgeColour(performanceScore)
 function CreateFeedback() {
 
     const feedData = createFeedbackDTO();
-    fetch('http://developmentservicev1.cnd3fxdgewd0hcc8.uksouth.azurecontainer.io/api/feedback', {
+    fetch('https://developmentservice.azurewebsites.net/api/feedback', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ function CreateFeedback() {
 function CreatePerformance() {
 
         const perfData = createPerformanceDTO();
-        fetch('http://developmentservicev1.cnd3fxdgewd0hcc8.uksouth.azurecontainer.io/api/performance', {
+        fetch('https://developmentservice.azurewebsites.net/api/performance', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

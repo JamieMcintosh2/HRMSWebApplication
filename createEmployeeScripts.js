@@ -1,6 +1,6 @@
 //let apiAddressEmploymentService = 'https://localhost:5003/api/';
-let apiAddressEmploymentService = 'http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/';
-let apiAddressProfileService = 'http://profileservicev1.hpbjgbfgexcqehau.uksouth.azurecontainer.io/api/';
+let apiAddressEmploymentService = 'https://employmentservice-web-app.azurewebsites.net/api/';
+let apiAddressProfileService = 'https://profile-web-app-hr.azurewebsites.net/api/';
 
 let apiAllJobsEndpoint = apiAddressEmploymentService + 'jobs';
 let apiAllOfficesEndpoint = apiAddressEmploymentService + 'offices';

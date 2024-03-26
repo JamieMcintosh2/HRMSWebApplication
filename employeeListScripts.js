@@ -24,7 +24,7 @@ document.getElementById('btnProfile').addEventListener('click', function() {
 
 
 function getAllEmployeeProfile(){
-    fetch('http://profileservicev1.hpbjgbfgexcqehau.uksouth.azurecontainer.io/api/employees')
+    fetch('https://profile-web-app-hr.azurewebsites.net/api/employees')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok.');

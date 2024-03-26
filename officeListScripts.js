@@ -5,7 +5,7 @@ let selectedDiv ='';
 
 function getAlloffices(){
     //fetch('https://localhost:5003/api/offices')
-    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/offices')
+    fetch('https://employmentservice-web-app.azurewebsites.net/api/offices')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok.');
@@ -125,7 +125,7 @@ function createNewOffice(){
         const officeData = createofficeDto(); //Getting the office data to send to the api
 
         //fetch('https://localhost:5003/api/offices', {
-        fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/offices', {
+        fetch('https://employmentservice-web-app.azurewebsites.net/api/offices', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -342,7 +342,7 @@ function updateOfficeInfo()
 function patchOfficeData(dataToUpdate)
 {
     //console.log(dataToUpdate);
-    fetch('http://employmentservicev1.gaevdjc8czexendt.uksouth.azurecontainer.io/api/offices/' + selectedRow, {
+    fetch('https://employmentservice-web-app.azurewebsites.net/api/offices/' + selectedRow, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
