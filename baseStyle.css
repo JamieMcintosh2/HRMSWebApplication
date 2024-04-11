@@ -23,6 +23,11 @@ body {
     background-repeat: no-repeat; /* Prevent the image from repeating */
     background-position: center; /* Center the image */
 }
+.responsive {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
 .testHead {
     position: fixed;
     top: 0;

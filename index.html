@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="baseStyle.css">
-    <link rel="stylesheet" href="homeStyle.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://kit.fontawesome.com/13f35877d6.js" crossorigin="anonymous"></script>
-    <meta name="viewport" content="width=1, initial-scale=1.0">
-    <title>Document</title>
+<title>Landing Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="baseStyle.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<script src="https://kit.fontawesome.com/13f35877d6.js" crossorigin="anonymous"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-docker,.fa-robot {font-size:200px}
+</style>
 </head>
 <body>
     <header class="testHead">
@@ -33,50 +39,55 @@
         </nav>
     
       </header>
-      
-      
-        <div class="containerHome w3-row">
-          
-          <div class="w3-container w3-half">
-            <img class="w3-image" src="logo.png" alt="NexGen Logo" width="400" height="250">
-            <p>NexGen is a pioneering enterprise organization at the forefront of revolutionizing the global marketplace. Our commitment to innovation, customer-centricity, and cutting-edge technology sets us apart as a leader in the industry, akin to giants like Amazon. Established on the principles of efficiency, reliability, and excellence, NexGen is dedicated to shaping the future of commerce and services worldwide. <br><br>
 
-              At NexGen, we understand that our success hinges on the collective expertise and dedication of our diverse workforce. From engineering to logistics, marketing to finance, and everything in between, we bring together top talent from various sectors to drive our vision forward. Whether you're a seasoned professional or a fresh graduate eager to make your mark, NexGen offers a dynamic and inclusive environment where your skills are valued and your potential is nurtured. <br><br>
-              
-              Our comprehensive range of products and services spans e-commerce, cloud computing, artificial intelligence, digital streaming, logistics solutions, and beyond. With a relentless focus on customer satisfaction and operational excellence, we continually push the boundaries of what's possible, delivering unparalleled value to our clients and partners around the globe. <br><br>
-              
-              NexGen's culture is built on innovation, collaboration, and a relentless pursuit of excellence. We foster an environment where creativity thrives, ideas are encouraged, and initiative is rewarded. As we continue to grow and expand our presence in the market, we remain committed to upholding the highest standards of integrity, ethics, and corporate responsibility. <br><br>
-              
-              Join us at NexGen and be part of a team that's shaping the future of commerce and technology. Together, we'll redefine what's possible and inspire the world with our vision of innovation, efficiency, and progress.</p>
-          </div>
-          <div class="w3-container w3-half grid">
-            <a href="EmployeeList.html" class="w3-card-4 imageCard w3-container card1 w3-show-inline-block">
-              <h5>Manage Employee</h5>
+<!-- Header -->
+<header class="w3-container w3-teal w3-center" style="padding:128px 16px;">
+    <a href="index.html" class="responsive">
+        <img src="logo.png" alt="Logo">
+      </a>
+  <h1 class="w3-margin w3-jumbo">NexGen Solutions</h1>
+  <h2>Technological Breakdown</h2>
 
-            </a>
-            <a href="createEmployee.html" class="w3-card-4 imageCard w3-container card2 w3-show-inline-block">
-              <h5>New Employee</h5>
+</header>
 
-            </a>
-            <a href="manageOffices.html" class="w3-card-4 imageCard w3-container card3 w3-show-inline-block">
-              <h5>Manage Offices</h5>
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container w3-light-grey">
+  <div class="w3-content">
+    <div class="w3-twothird">
+        <h1 class="w3-text-teal">Microservices</h1>
+      <h5 class="w3-padding-32">This application has been created using an emerging Software Architecture called Microservices. This is a form of Service Oriented Architecture (SOA) which is a collection of services representing a business process for the enterprise organisation, each of these services are components of the system and tend to expose their individual functionality over Rest APIs.
+        <br><br> Microservices is an approach used to develop Service Oriented Architecture and takes the decoupling of services a step further, where each individual component of the system is broken down into a small independently deployable service which prioritises one single business process, these services do not need to communicate with other sections of the system and have their own individual database.
+         This allows for great scalability and Fault Tolerance which this application demonstrates. 
+         <br><br> This application has split the HR Domain into 4 Microservices: Profile Service, Employment Service, Recruitment Service and Development Service. These Services have then been containerised using Docker and Deployed on Azure, for a completely Serverless application.
+      </h5>
 
-            </a>
-            <a href="generateContent.html" class="w3-card-4 imageCard w3-container card4 w3-show-inline-block">
-              <h5>Manage Jobs</h5>
 
-            </a>
-            <a href="generateContent.html" class="w3-card-4 imageCard w3-container card5 w3-show-inline-block">
-              <h5>Recruitment Services</h5>
+    </div>
 
-            </a>
-            <a href="#" class="w3-card-4 imageCard w3-container card6 w3-show-inline-block">
-              <h5>Fake Link</h5>
+    <div class="w3-third w3-center">
+      <i class="fa-brands fa-docker w3-padding-64 w3-text-teal"></i>
+    </div>
+  </div>
+</div>
 
-            </a>
-          </div>
+<!-- Second Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container w3-teal">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+      <i class="fa fa-robot w3-padding-64 w3-text-white w3-margin-right"></i>
+    </div>
 
-        </div>
+    <div class="w3-twothird">
+      <h1 class="w3-w3-light-grey">Generative Artificial Intelligence</h1>
+      <h5 class="w3-padding-32">At the end of 2022 OpenAI released ChatGPT to the public, revolutionizing the way we use Artificial Intelligence (AI)
+        <br><br> The release of this technology resulted in professionals in the HR Domain suggesting that this technology could be used to help assist HR workers with some every day tasks their work requires.
+        <br><br> Based on the suggestions of Professionals from the HR domain, this Project used the OpenAI API to Generate Job Adverts and Job Interview questions in a variety of spoken languages with great success allowing for improved efficiency and assisting large organisations with global recruitment.
+      </h5>
+
+    </div>
+  </div>
+</div>
+
 
 </body>
 </html>
