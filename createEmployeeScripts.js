@@ -1,6 +1,6 @@
 //let apiAddressEmploymentService = 'https://localhost:5003/api/';
 let apiAddressEmploymentService = 'https://employmentservice-web-app.azurewebsites.net/api/';
-let apiAddressProfileService = 'https://profile-web-app-hr.azurewebsites.net/api/';
+let apiAddressProfileService = 'https://profileservicesjamie.azurewebsites.net/api/';
 
 let apiAllJobsEndpoint = apiAddressEmploymentService + 'jobs';
 let apiAllOfficesEndpoint = apiAddressEmploymentService + 'offices';

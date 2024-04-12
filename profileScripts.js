@@ -1,5 +1,5 @@
 //let apiAddress = 'https://localhost:5000/api/';
-let apiAddress = 'https://profile-web-app-hr.azurewebsites.net/api/';
+let apiAddress = 'https://profileservicesjamie.azurewebsites.net/api/';
 let apiDevelopment = 'https://developmentservice.azurewebsites.net/api/'
 //let apiAddressEmploymentService = 'https://localhost:5003/api/';
 //'http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/offices'
