@@ -292,7 +292,7 @@ function UpdateEmploymentInfo()
         let newEmergPhone = document.getElementById('emergPNumber').value;
         let newJobData = newJobId.options[newJobId.selectedIndex].value;
         let newOfficeData = newOfficeId.options[newOfficeId.selectedIndex].value
-        if(newJobData === "Error - Data not loaded" || new OfficeData === "Error - Data not loaded")
+        if(newJobData === "Error - Data not loaded" || newOfficeData === "Error - Data not loaded")
         {
             alert("Request Denied - Please try again later");
             return;
