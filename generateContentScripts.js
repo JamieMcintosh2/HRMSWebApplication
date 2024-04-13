@@ -2,9 +2,23 @@ let displayedDiv = 0;
 let apiRecruitmentService = 'https://hrrecruitmentuni.azurewebsites.net/api/';
 let JobAdPOSTEndpoint = apiRecruitmentService + 'adverts';
 let interviewQEndpoint = apiRecruitmentService + 'questions'
+let width = 0;
+let progressBar;
+let interval;
 
 function showLoadingOverlay() {
     document.getElementById('id01').style.display = 'block';
+    width = 0;
+    progressBar = document.getElementById('loadingBar');
+    interval = setInterval(increaseWidth, 1000);
+}
+//Fake Loading Bar
+function increaseWidth() {
+    width += 5; // Increase by 5% every second
+    progressBar.style.width = width + '%';
+    if (width >= 100) {
+        clearInterval(interval); // Stop when width reaches 100%
+    }
 }
 
 function hideLoadingOverlay() {
