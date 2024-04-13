@@ -136,3 +136,15 @@ body {
         transition-delay: calc(.15s * var(--i));
     }
 }
+.modalPosition {
+    /* Default margin top for desktop */
+    margin-top: 5%;
+}
+
+/* If its a mobile */
+@media only screen and (max-width: 768px) {
+    .modalPosition {
+        /* Margin top for mobile */
+        margin-top: 15%;
+    }
+}

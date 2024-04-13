@@ -37,7 +37,7 @@
 
 
     <!-- Page Container -->
-    <div class="w3-content w3-margin-top" style="max-width:1400px; padding-bottom: 10%;" onclick="w3_close()">
+    <div class="w3-content w3-margin-top" style="max-width:1400px; padding-bottom: 10%;">
         <div class="w3-container w3-card w3-teal">
             <h1>New Employee</h1>
         </div>
@@ -74,7 +74,7 @@
                 <hr>
                 <button onclick="EmployeeInfo()" class="w3-btn w3-teal">Continue</button>
 
-                <div id="id01" class="w3-modal">
+                <div id="id01" class="w3-modal modalPosition">
                     <div class="w3-modal-content w3-card-4">
                       <header class="w3-container w3-teal"> 
                         <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
@@ -107,13 +107,6 @@
     <script src="createEmployeeScripts.js"></script>
     <script>
         //updateExtensionCodes();
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-        }
- 
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-        }
         function EmployeeInfo()
         {
            // console.log("This has worked");

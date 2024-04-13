@@ -1,6 +1,6 @@
 //let apiAddressEmploymentService = 'https://localhost:5003/api/';
 let apiAddressEmploymentService = 'https://employmentservice-web-app.azurewebsites.net/api/';
-let apiAddressProfileService = 'https://profileservicesjamie.azurewebsites.net/api/';
+let apiAddressProfileService = 'https://profile-web-app-hr.azurewebsites.net/api/';
 
 let apiAllJobsEndpoint = apiAddressEmploymentService + 'jobs';
 let apiAllOfficesEndpoint = apiAddressEmploymentService + 'offices';
@@ -169,6 +169,8 @@ function getAllJobs()
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
+        alert("Problem Communicating with the Server please try again later");
+        window.location.href = 'index.html';
     });
 }
 
@@ -203,6 +205,8 @@ function getAllOffices()
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
+        alert("Problem Communicating with the Server please try again later");
+        window.location.href = 'index.html';
     });
 }
 
@@ -304,6 +308,136 @@ function createEmployeeJobAndOfficeDto(createdEmployeeID, jobId, officeId) {
     return employeeJODto;
 }
 
+//Promise Chain to ensure all POST Requests are Successful.
+function POSTData() {
+    const employeeData = createEmployeeDTO(); // Getting the employee data to send to the API
+    let createdEmployeeID;
+
+    // Array to store all fetch promises
+    const fetchPromises = [];
+
+    // First fetch: create employee
+    const employeePromise = fetch(apiEmployeeEndpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(employeeData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Employee Success:', data);
+        createdEmployeeID = data.id;
+        return createAddressDto(createdEmployeeID);
+    })
+    .then(addressData => {
+        // Second fetch: create employee address
+        const addressPromise = fetch(apiEmployeeAddressEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(addressData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Address Success:', data);
+            return createEmergencyContactsDto(createdEmployeeID);
+        });
+
+        fetchPromises.push(addressPromise); // Add address promise to array
+        return addressPromise;
+    })
+    .then(contactsData => {
+        // Third fetch: create employees emergency contacts
+        const contactsPromise = fetch(apiEmployeeEmergencyEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(contactsData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Emergency Contact Success:', data);
+            const jobId = document.getElementById('selectJob').value;
+            const officeId = document.getElementById('selectOffice').value;
+            const employeeJob_OfficeData = createEmployeeJobAndOfficeDto(createdEmployeeID, jobId, officeId);
+            
+            // Fourth fetch: create employees employment details
+            const employmentPromise = fetch(apiEmploymentEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(employeeJob_OfficeData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Employment Success:', data);
+            });
+
+            fetchPromises.push(employmentPromise); // Add employment promise
+            return employmentPromise;
+        });
+
+        fetchPromises.push(contactsPromise); // Add contacts promise 
+        return contactsPromise;
+    });
+
+    fetchPromises.push(employeePromise); // Add employee promise
+
+    // Wait for all fetch promises to resolve
+    Promise.all(fetchPromises)
+        .then(() => {
+            console.log('All requests succeeded.');
+            alert("New Employee Successfully Created");
+            window.location.href = 'EmployeeList.html';
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation, One or more of the requests failed:', error);
+                       // If any request fails, delete previously created resources
+                       if (createdEmployeeID) {
+                        // Delete employee
+                        fetch(apiEmployeeEndpoint + '/' + createdEmployeeID, {
+                            method: 'DELETE'
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to delete employee');
+                            }
+                            console.log('Employee deleted successfully.');
+                        })
+                        .catch(deleteError => {
+                            console.error('Failed to delete employee:', deleteError);
+                        });
+                    }
+        });
+}
+
+
+
+/*
 function POSTData() {
     const employeeData = createEmployeeDTO(); //Getting the employee data to send to the api
 
@@ -388,7 +522,7 @@ function POSTData() {
         console.error('There was a problem with the fetch operation:', error);
         // Handle error for all requests
     });
-}
+}*/
 
 /*
 function POSTData()

@@ -27,8 +27,9 @@ const fetchFeedback = fetch(apiEndpointFH + employeeSelected.id)
 // Wait for both promises to return
 Promise.all([fetchPerformance, fetchFeedback])
   .then(([performanceData, feedbackData]) => {
-    populateTable(performanceData, feedbackData);
     populateFields();
+    populateTable(performanceData, feedbackData);
+    
   })
   .catch(error => {
     console.error('Error:', error);

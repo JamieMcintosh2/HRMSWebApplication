@@ -143,7 +143,9 @@ function GenerateInterviewQs()
             responsePara.innerHTML = formattedData;
         })
         .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
+            console.error('There was a problem with the fetch operation, please ensure the API is running:', error);
+            alert("System encountered an error");
+            hideLoadingOverlay();
             // Handle error - alert the user or perform other actions
         });
 
@@ -178,8 +180,9 @@ function GenerateJobAd() {
             responsePara.innerHTML = formattedData;
         })
         .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            // Handle error - alert the user or perform other actions
+            console.error('There was a problem with the fetch operation, please ensure the API is running:', error);
+            alert("System encountered an error");
+            hideLoadingOverlay();
         });
     }
 }

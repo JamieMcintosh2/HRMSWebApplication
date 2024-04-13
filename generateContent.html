@@ -37,9 +37,9 @@
   
 
     <!-- Page Container -->
-    <div class="w3-content w3-margin-top" style="max-width:1400px; padding-bottom: 10%;" onclick="w3_close()">
+    <div class="w3-content w3-margin-top" style="max-width:1400px; padding-bottom: 10%;">
         <div class="w3-container w3-card w3-teal">
-            <h1>Content Generation</h1>
+            <h1>Recruitment Services</h1>
         </div>
         <div class="w3-white w3-text-grey w3-card-4">
             <div class="w3-container">
@@ -59,10 +59,25 @@
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Desired Traits, leadership, communication etc." id="JobQTraits" style="width: 50%; margin-bottom: 2%;" required>
                     <select class="w3-select w3-border" id="QLanguage" name="QLanguage" style="width: 50%; margin-bottom: 2%;" required>
                         <option value="" disabled selected>Select Language</option>
-                        <option value="1">English</option>
-                        <option value="2">Polish</option>
-                        <option value="3">Spanish</option>
-                        <option value="4">Romanian</option>
+                        <option value="English">English</option>
+                        <option value="Polish">Polish</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Romanian">Romanian</option>
+                        <option value="German">German</option>
+                        <option value="French">French</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Dutch">Dutch</option>
+                        <option value="Swedish">Swedish</option>
+                        <option value="Danish">Danish</option>
+                        <option value="Norwegian">Norwegian</option>
+                        <option value="Finnish">Finnish</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Hungarian">Hungarian</option>
+                        <option value="Czech">Czech</option>
+                        <option value="Slovak">Slovak</option>
+                        <option value="Bulgarian">Bulgarian</option>
+                        <option value="Mandarin">Mandarin</option>
                     </select>
                     <br>
                     <button onclick="GenerateInterviewQs()" class="w3-btn w3-teal">Generate</button>
@@ -72,19 +87,34 @@
                     <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-rectangle-ad fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Generate a Job Advert</h2>
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Job Title" id="jobAdTitle" style="width: 50%; margin-bottom: 2%;" required>
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Key Skills" id="jobAdSkills" style="width: 50%; margin-bottom: 2%;" required>
-                    <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Job Description" id="jobAdDescription" style="width: 50%; margin-bottom: 2%;" required>
+                    <textarea class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Job Description" id="jobAdDescription" style="width: 50%; margin-bottom: 2%;" required></textarea>
                     <input class="w3-input w3-border w3-animate-input" type="text" placeholder="Enter Benefits" id="jobAdBenefits" style="width: 50%; margin-bottom: 2%;" required>
                     <select class="w3-select w3-border" id="jobAdLanguage" name="jobAdLanguage" style="width: 50%; margin-bottom: 2%;" required>
                         <option value="" disabled selected>Select Language</option>
-                        <option value="1">English</option>
-                        <option value="2">Polish</option>
-                        <option value="3">Spanish</option>
-                        <option value="4">Romanian</option>
+                        <option value="English">English</option>
+                        <option value="Polish">Polish</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Romanian">Romanian</option>
+                        <option value="German">German</option>
+                        <option value="French">French</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Dutch">Dutch</option>
+                        <option value="Swedish">Swedish</option>
+                        <option value="Danish">Danish</option>
+                        <option value="Norwegian">Norwegian</option>
+                        <option value="Finnish">Finnish</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Hungarian">Hungarian</option>
+                        <option value="Czech">Czech</option>
+                        <option value="Slovak">Slovak</option>
+                        <option value="Bulgarian">Bulgarian</option>
+                        <option value="Mandarin">Mandarin</option>
                     </select>
                     <br>
                     <button onclick="GenerateJobAd()" class="w3-btn w3-teal">Generate</button>
                 </div>
-                <div id="id01" class="w3-modal">
+                <div id="id01" class="w3-modal modalPosition">
                     <div class="w3-modal-content w3-card-4">
                       <div class="w3-container">
                         <h1><i class="fa-solid fa-spinner w3-spin"></i></h1>

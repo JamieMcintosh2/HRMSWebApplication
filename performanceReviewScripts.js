@@ -51,7 +51,7 @@ function setBadgeColour(performanceScore)
     }
 
 }
-
+/*
 function CreateFeedback() {
 
     const feedData = createFeedbackDTO();
@@ -85,7 +85,71 @@ function CreateFeedback() {
         // Handle error - alert the user or perform other actions
     });
 }
+*/
+function CreateFeedback() {
+    return new Promise((resolve, reject) => {
+        const feedData = createFeedbackDTO();
+        fetch('https://developmentservice.azurewebsites.net/api/feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(feedData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            document.getElementById("spinnerHeading").remove();
+            document.getElementById("generateHeading").remove();
+            setBadgeColour(data.overallScore);
+            document.getElementById("empName").innerText = employeeSelected.fName + " " + employeeSelected.lName;
+            document.getElementById("score").innerText = data.overallScore;
+            resolve(data); // Resolve the promise with the response data
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            alert("There was an issue communicating to the Server, please try again later");
+            location.reload();
+            reject(error); // Reject the promise with the error
+        });
+    });
+}
 
+function CreatePerformance() {
+    return new Promise((resolve, reject) => {
+        const perfData = createPerformanceDTO();
+        fetch('https://developmentservice.azurewebsites.net/api/performance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(perfData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Performance Success:', data);
+            // Handle success for performance - do something with the response from the server
+            resolve(data); // Resolve the promise with the response data
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            alert("There was an issue communicating to the Server, please try again later");
+            location.reload();
+            reject(error); // Reject the promise with the error
+        });
+    });
+}
+/*
 function CreatePerformance() {
 
         const perfData = createPerformanceDTO();
@@ -114,7 +178,7 @@ function CreatePerformance() {
             // Handle error - alert the user or perform other actions
         });
 }
-
+*/
 
 function submitReview()
 {
@@ -154,16 +218,24 @@ function submitReview()
             weaknessesList = "No Weaknesses"
         }
         openModal2();
-        CreatePerformance();
-        //Adding 1 second delay to allow server to create performance before creating feedback.
-        setTimeout(() => {
-            CreateFeedback();
-        }, 1000);
+        // Create both performance and feedback promises
+        const performancePromise = CreatePerformance();
+        const feedbackPromise = CreateFeedback();
 
-
-    }
-    else{
-        alert("Please make sure Feedback field is filled in.");
+        // Wait for both promises to resolve
+        Promise.all([performancePromise, feedbackPromise])
+            .then(() => {
+                // Both API calls succeeded
+                console.log("Both API POST requests Successful.");
+            })
+            .catch(error => {
+                // If one API call fails both must fail
+                console.error("At least one API call failed:", error);
+                alert("There was an issue communicating with the Server. Please try again later.");
+                location.reload();
+            });
+    } else {
+        alert("Please make sure the Feedback field is filled in.");
     }
     
 }
