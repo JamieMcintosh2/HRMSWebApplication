@@ -238,9 +238,16 @@ function openModal2()
 function navigateToPerformanceReview() {
         window.location.href = 'performanceReview.html';
     }
-    function navigateToPerformanceHistory() {
-        window.location.href = 'performanceDetails.html';
-    }
+function navigateToPerformanceHistory() {
+  var strengthText = document.getElementById("strengthList").innerText;
+  var weaknessText = document.getElementById("weaknessList").innerText;
+
+  if (strengthText.trim() === "Error - Data not Loaded" || weaknessText.trim() === "Error - Data not Loaded") {
+    alert("Error: Data not loaded. Make sure a Performance Review has been conducted before accessing this page");
+  } else {
+    window.location.href = 'performanceDetails.html';
+  }
+}
     </script>
     </body>
 </html>
