@@ -11,7 +11,7 @@ let currentFeedback = JSON.parse(localStorage.getItem('empFeedback'));
 const fetchPerformance = fetch(apiEndpointPH + employeeSelected.id)
   .then(response => {
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`Error Fetching Performance data! Status: ${response.status}`);
     }
     return response.json();
   });
@@ -19,12 +19,12 @@ const fetchPerformance = fetch(apiEndpointPH + employeeSelected.id)
 const fetchFeedback = fetch(apiEndpointFH + employeeSelected.id)
   .then(response => {
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`Error Fetching Feedback data! Status: ${response.status}`);
     }
     return response.json();
   });
 
-// Wait for both promises to return
+// Waiting for Performance and Feedback promises to return
 Promise.all([fetchPerformance, fetchFeedback])
   .then(([performanceData, feedbackData]) => {
     populateFields();

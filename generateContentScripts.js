@@ -13,8 +13,9 @@ function showLoadingOverlay() {
     interval = setInterval(increaseWidth, 1000);
 }
 //Fake Loading Bar
+//https://www.w3schools.com/jsref/met_win_setinterval.asp
 function increaseWidth() {
-    width += 5; // Increase by 5% every second
+    width += 5; // Increase the "loading" bar by 5% every second
     progressBar.style.width = width + '%';
     if (width >= 100) {
         clearInterval(interval); // Stop when width reaches 100%
@@ -67,7 +68,7 @@ function createJobAdDTO()
 
 function createQuestionsDTO()
 {
-    //Fixthis
+    
     const selection = document.getElementById('QLanguage');
 
     const questionsDto = {
@@ -149,7 +150,6 @@ function GenerateInterviewQs()
         })
         .then(data => {
             console.log('Success:', data);
-            // Handle success - do something with the response from the server
             // Replace '\n' with <br> tags for line breaks
             const formattedData = data.result.replace(/\n/g, '<br>');
             const responsePara = document.getElementById('responsePara');
@@ -159,8 +159,9 @@ function GenerateInterviewQs()
         .catch(error => {
             console.error('There was a problem with the fetch operation, please ensure the API is running:', error);
             alert("System encountered an error");
+            //Sometimes the API doesnt respond and user gets stuck on Loading OVerlay screen
+            //So on any error I am hiding it
             hideLoadingOverlay();
-            // Handle error - alert the user or perform other actions
         });
 
     }
@@ -186,7 +187,6 @@ function GenerateJobAd() {
         })
         .then(data => {
             console.log('Success:', data);
-            // Handle success - do something with the response from the server
             // Replace '\n' with <br> tags for line breaks
             const formattedData = data.result.replace(/\n/g, '<br>');
             const responsePara = document.getElementById('responsePara');
@@ -196,6 +196,8 @@ function GenerateJobAd() {
         .catch(error => {
             console.error('There was a problem with the fetch operation, please ensure the API is running:', error);
             alert("System encountered an error");
+                        //Sometimes the API doesnt respond and user gets stuck on Loading OVerlay screen
+            //So on any error I am hiding it
             hideLoadingOverlay();
         });
     }

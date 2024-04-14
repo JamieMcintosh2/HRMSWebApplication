@@ -15,13 +15,12 @@ function getAlloffices(){
   .then(data => {
     // Handle the data received from the API
     console.log('Data received:', data);
-    // You can perform operations with the 'data' here
     allofficeData = data;
     populateTable(data);
   })
   .catch(error => {
-    // Handle errors that may occur during the fetch operation
-    console.error('There was a problem with the fetch operation:', error);
+    // Handle errors 
+    console.error('There was a problem fetching the office data:', error);
   });
 }
 
@@ -145,11 +144,10 @@ function createNewOffice(){
             location.reload();
             alert("New office Created Successfully");
             closeAddofficeModal();
-            // Handle success - do something with the response from the server
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
-            // Handle error - alert the user or perform other actions
+
         });
 
     }
@@ -346,9 +344,8 @@ function patchOfficeData(dataToUpdate)
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            // Add any other headers if needed
         },
-        body: JSON.stringify(dataToUpdate) // Convert your data to JSON
+        body: JSON.stringify(dataToUpdate) // Convert the data to JSON
     })
     .then(response => {
     // Handle the response from the server
@@ -366,6 +363,5 @@ function patchOfficeData(dataToUpdate)
     .catch(error => 
     {
         console.error('Error:', error);
-        // Handle errors here
     });
 }

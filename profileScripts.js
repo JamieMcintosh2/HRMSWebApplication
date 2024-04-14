@@ -1,5 +1,5 @@
 //let apiAddress = 'https://localhost:5000/api/';
-let apiAddress = 'https://profileservicesjamie.azurewebsites.net/api/';
+let apiAddress = 'https://profile-web-app-hr.azurewebsites.net/api/';
 let apiDevelopment = 'https://developmentservice.azurewebsites.net/api/'
 //let apiAddressEmploymentService = 'https://localhost:5003/api/';
 //'http://employmentservice.fxekhph3fmebdhdr.uksouth.azurecontainer.io/api/offices'
@@ -316,10 +316,10 @@ function patchEmploymentData(dataToUpdate, endpoint)
             'Content-Type': 'application/json',
             // Add any other headers if needed
         },
-        body: JSON.stringify(dataToUpdate) // Convert your data to JSON
+        body: JSON.stringify(dataToUpdate) // Convert data to JSON
     })
     .then(response => {
-    // Handle the response from the server
+    // Handle server response
         if (response.ok) 
         {
             console.log('PATCH request successful');
@@ -368,7 +368,7 @@ function patchEmploymentData(dataToUpdate, endpoint)
     .catch(error => 
     {
         console.error('Error:', error);
-        // Handle errors here
+        // Handle errors
     });
 }
 
@@ -405,10 +405,9 @@ function patchEmergencyData(dataToUpdate, endpoint)
             'Content-Type': 'application/json',
             // Add any other headers if needed
         },
-        body: JSON.stringify(dataToUpdate) // Convert your data to JSON
+        body: JSON.stringify(dataToUpdate) // Convert data to JSON
     })
     .then(response => {
-    // Handle the response from the server
         if (response.ok) 
         {
             console.log('PATCH request successful');
@@ -425,7 +424,6 @@ function patchEmergencyData(dataToUpdate, endpoint)
     .catch(error => 
     {
         console.error('Error:', error);
-        // Handle errors here
     });
 }
 
@@ -464,12 +462,11 @@ function patchAddressData(dataToUpdate, endpoint)
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            // Add any other headers if needed
         },
-        body: JSON.stringify(dataToUpdate) // Convert your data to JSON
+        body: JSON.stringify(dataToUpdate) // Convert data to JSON
     })
     .then(response => {
-    // Handle the response from the server
+
         if (response.ok) 
         {
             console.log('PATCH request successful');
@@ -485,7 +482,6 @@ function patchAddressData(dataToUpdate, endpoint)
     .catch(error => 
     {
         console.error('Error:', error);
-        // Handle errors here
     });
 }
 
@@ -517,12 +513,11 @@ function patchProfileData(dataToUpdate, endpoint)
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            // Add any other headers if needed
         },
-        body: JSON.stringify(dataToUpdate) // Convert your data to JSON
+        body: JSON.stringify(dataToUpdate) // Convert to JSON
     })
     .then(response => {
-    // Handle the response from the server
+
         if (response.ok) 
         {
             console.log('PATCH request successful');
@@ -539,7 +534,6 @@ function patchProfileData(dataToUpdate, endpoint)
     .catch(error => 
     {
         console.error('Error:', error);
-        // Handle errors here
     });
 }
 
@@ -551,12 +545,10 @@ function patchEmergencyContact(dataToUpdate)
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            // Add any other headers if needed
         },
-        body: JSON.stringify(dataToUpdate) // Convert your data to JSON
+        body: JSON.stringify(dataToUpdate) // Convert to JSON
     })
     .then(response => {
-    // Handle the response from the server
         if (response.ok) 
         {
             console.log('PATCH request successful');
@@ -569,7 +561,6 @@ function patchEmergencyContact(dataToUpdate)
     .catch(error => 
     {
         console.error('Error:', error);
-        // Handle errors here
     });
 
 }
@@ -590,7 +581,7 @@ function fillSelectOptions(data, selectId, errorMessage, selectedEmployeeData) {
             data.forEach(item => {
                 const option = document.createElement('option');
                 option.value = item.id; 
-                option.textContent = item.jobTitle; // Assuming each item has a 'name' property
+                option.textContent = item.jobTitle; 
                 selectElement.appendChild(option);
                 if(item.jobTitle === selectedEmployeeData.job.jobTitle)
                 {
@@ -607,7 +598,7 @@ function fillSelectOptions(data, selectId, errorMessage, selectedEmployeeData) {
             data.forEach(item => {
                 const option = document.createElement('option');
                 option.value = item.id; 
-                option.textContent = item.city + ', ' + item.country; // Assuming each item has a 'name' property
+                option.textContent = item.city + ', ' + item.country; 
                 selectElement.appendChild(option);
                 if(item.id === selectedEmployeeData.office.id)
                 {
@@ -733,10 +724,10 @@ Promise.all(fetchPromises.map(promise => {
 
 
 // Work with employee job data
-        // Usage for jobs
+        // Filling  jobs
         fillSelectOptions(allJobsData, 'selectJob', 'Error - Data not loaded', employeeJobData);
 
-        // Usage for offices
+        // Filling offices
         fillSelectOptions(allOfficesData, 'selectOffice', 'Error - Data not loaded', employeeJobData);
 
         
@@ -785,7 +776,7 @@ return response.json();
 })
 .then(data => {
 // Work with the JSON data
-console.log(data); // Display or process the fetched data
+console.log(data); 
 
 //Concat City and Country
 const empCityCountryElement = document.getElementById('cityCountry');
@@ -809,7 +800,7 @@ fetch(apiEmergencyEndpoint)
     })
     .then(data => {
     // Work with the JSON data
-    console.log(data); // Display or process the fetched data
+    console.log(data); 
     //Handling relationship element
     const relationshipElement = document.getElementById('emergRelationship');
     relationshipElement.textContent = data.relationship; // Replace 'jobTitle' with the property containing the job title from your API response
@@ -837,7 +828,7 @@ fetch(apiEmployeeJobEndpoint)
     })
     .then(data => {
     // Work with the JSON data
-    console.log(data); // Display or process the fetched data
+    console.log(data); 
     //Handling relationship element
     const departmentElement = document.getElementById('jobDepartment');
     departmentElement.innerHTML = `<b>${data.job.department}</b>`; //Using .innerHTML to keep the bold tags - .textContent removes it dont know why

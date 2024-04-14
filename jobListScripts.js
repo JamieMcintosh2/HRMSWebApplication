@@ -71,14 +71,13 @@ function getAllJobs(){
   })
   .then(data => {
     // Handle the data received from the API
-    console.log('Data received:', data);
-    // You can perform operations with the 'data' here
+    console.log('Job Data received:', data);
     allJobData = data;
     populateTable(data);
   })
   .catch(error => {
-    // Handle errors that may occur during the fetch operation
-    console.error('There was a problem with the fetch operation:', error);
+    //Handle errors
+    console.error('There was a problem fetching the Job Data:', error);
   });
 }
 
@@ -315,7 +314,7 @@ function updateJobInfo() {
 }
 
 function patchJobData(patchData) {
-    // Assuming you have an API endpoint for updating job information
+    // API Endpoint for JOBS
     let jobUpdateEndpoint = 'https://employmentservice-web-app.azurewebsites.net/api/jobs/' + selectedJob.id;
 
     fetch(jobUpdateEndpoint, {
@@ -341,6 +340,6 @@ function patchJobData(patchData) {
         .catch(error => 
         {
             console.error('Error:', error);
-            // Handle errors here
+            
         });
     }
